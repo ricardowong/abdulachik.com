@@ -5,5 +5,8 @@ angular.module('abdul-blog', ['ngResource', 'ngRoute'])
       .when('/', {
         templateUrl: 'views/home/home.html', 
         controller: 'HomeController'})
+      .when('/soon', {
+        templateUrl: 'views/redirects/soon.html', 
+        controller: 'RedirectsController'})
       .otherwise({redirectTo: '/'});
   }]);
