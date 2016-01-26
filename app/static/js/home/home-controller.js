@@ -1,3 +1,4 @@
-angular.module('abdul-blog')
+abdulBlog
   .controller('HomeController', ['$scope', function ($scope) {
+  	//example
   }]);

@@ -1,6 +1,8 @@
 // Declare app level module which depends on filters, and services
-angular.module('abdul-blog', ['ngResource', 'ngRoute'])
-  .config(['$routeProvider', function ($routeProvider) {
+
+var abdulBlog = angular.module('abdul-blog', ['ngResource', 'ngRoute', 'firebase']);
+
+abdulBlog.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/home/home.html', 
@@ -8,5 +10,11 @@ angular.module('abdul-blog', ['ngResource', 'ngRoute'])
       .when('/soon', {
         templateUrl: 'views/redirects/soon.html', 
         controller: 'RedirectsController'})
+      .when('/login', {
+        templateUrl: 'views/login/login.html', 
+        controller: 'LoginController'})
+      .when('/dashboard', {
+        templateUrl: 'views/dashboard/dashboard.html', 
+        controller: 'DashboardController'})
       .otherwise({redirectTo: '/'});
   }]);
