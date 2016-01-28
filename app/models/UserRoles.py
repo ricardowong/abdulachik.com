@@ -1,6 +1,6 @@
-from app.models import BaseModel
-from app.models.User import User
-from app.models.Role import Role
+from helpers import BaseModel
+from User import User
+from Role import Role
 from peewee import Model, ForeignKeyField
 
 class UserRoles(BaseModel):

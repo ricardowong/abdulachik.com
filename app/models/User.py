@@ -1,4 +1,4 @@
-from app.models import BaseModel
+from helpers import BaseModel
 from peewee import CharField, TextField, IntegrityError
 from flask.ext.bcrypt import generate_password_hash
 from flask.ext.security import UserMixin
@@ -20,3 +20,4 @@ class User(BaseModel, UserMixin):
 				)
 		except IntegrityError:
 			raise ValueError("User already exists")
+

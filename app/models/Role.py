@@ -1,4 +1,4 @@
-from app.models import BaseModel
+from helpers import BaseModel
 from peewee import CharField, TextField
 from flask.ext.security import RoleMixin
 
