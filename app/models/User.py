@@ -1,8 +1,9 @@
 from app.models import BaseModel
-from peewee import Model, CharField, TextField, IntegrityError
+from peewee import CharField, TextField, IntegrityError
 from flask.ext.bcrypt import generate_password_hash
+from flask.ext.security import UserMixin
 
-class User(BaseModel):
+class User(BaseModel, UserMixin):
 	twitter = CharField()
 	email = CharField()
 	password = CharField()

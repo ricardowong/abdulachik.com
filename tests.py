@@ -11,8 +11,8 @@ test_db = MySQLDatabase(
 	port=3306,
 	host='localhost'
 	)
-class TestUsers(unittest.TestCase):
 
+class TestUsers(unittest.TestCase):
 	def setUp(self):
 		test_db.connect()
 		try:

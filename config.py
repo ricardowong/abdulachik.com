@@ -16,6 +16,7 @@ class ProductionConfig(Config):
 
 class DevelopmentConfig(Config):
 	DEBUG = True
+	Config.DATABASE['name'] = 'abdul_blog_development'
 
 
 class TestingConfig(Config):
