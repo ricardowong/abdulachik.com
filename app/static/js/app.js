@@ -1,7 +1,6 @@
 // Declare app level module which depends on filters, and services
 
 var abdulBlog = angular.module('abdul-blog', ['ngResource', 'ngRoute', 'firebase']);
-
 abdulBlog.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -13,8 +12,9 @@ abdulBlog.config(['$routeProvider', function ($routeProvider) {
       .when('/login', {
         templateUrl: 'views/login/login.html', 
         controller: 'LoginController'})
-      .when('/dashboard', {
-        templateUrl: 'views/dashboard/dashboard.html', 
-        controller: 'DashboardController'})
       .otherwise({redirectTo: '/'});
+
   }]);
+
+
+

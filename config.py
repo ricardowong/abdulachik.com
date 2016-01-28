@@ -1,5 +1,22 @@
-import os
-basedir = os.path.abspath(os.path.dirname(__file__))
+class Config(object):
+	DATABASE = {
+		'name' : 'abdul_blog',
+		'engine' : 'peewee.MySQLDatabase',
+		'host' : 'localhost',
+		'port' : 3306,
+		'user' : 'root',
+		'passwd' : 'aa121292'
+	}
+	DEBUG = False
+	TESTING = False
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
-SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
+class ProductionConfig(Config):
+	pass
+
+
+class DevelopmentConfig(Config):
+	DEBUG = True
+
+
+class TestingConfig(Config):
+	TESTING = True
