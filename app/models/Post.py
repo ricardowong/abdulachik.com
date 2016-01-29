@@ -1,11 +1,10 @@
 from helpers import BaseModel
 from User import User
-import Comment
 from peewee import CharField, TextField, ForeignKeyField
 
 class Post(BaseModel):
 	content = TextField()
-	user = ForeignKeyField(User, 'user')
+	user = ForeignKeyField(User, 'user_posted')
 
 	def get_posts_from_user(self):
 		return Post.select().where(Post.user == self.user)
