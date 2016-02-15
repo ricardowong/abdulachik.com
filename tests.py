@@ -2,10 +2,7 @@ import unittest
 from playhouse.test_utils import test_database
 from peewee import MySQLDatabase
 
-from app.models.User import User
-from app.models.Post import Post
-from app.models.Image import Image
-from app.models.Comment import Comment
+from models import *
 
 import random
 
@@ -21,10 +18,10 @@ class TestUsers(unittest.TestCase):
 	def setUp(self):
 		test_db.connect()
 		try:
-			test_db.drop_tables((User, Post, Image, Comment), safe=True)
+			test_db.drop_tables((User, Post, Image), safe=True)
 		except:
 			print "doesnt exist"
-		test_db.create_tables((User, Post, Image, Comment), safe=True)
+		test_db.create_tables((User, Post, Image), safe=True)
 		self.create_test_data()
 		test_db.close()
 
@@ -43,9 +40,6 @@ class TestUsers(unittest.TestCase):
 				url = 'http://test.com/%s_example_%s'
 				Image.create(url=url% (p, u + random.randint(0,10)), title='image_%s'%(u+1), post=p+1)
 				Image.create(url=url% (p, u + random.randint(0,10)), title='image_%s'%(u+1), post=p+1)
-				for c in range(20):
-					comment = ['its great!', 'it sucks!', 'i have a cat too!']
-					Comment.create(content=comment[random.randint(0,2)], user=u+1, post=u+1)
 
 
 	def test_creating_ten_users(self):
