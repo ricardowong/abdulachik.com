@@ -28,6 +28,7 @@ class User(BaseModel, UserMixin):
 			raise ValueError("User already exists")
 
 class Post(BaseModel):
+	title = CharField()
 	content = TextField()
 	date = DateTimeField(default=datetime.datetime.now())	
 	author = ForeignKeyField(User, related_name='post_author')
@@ -40,7 +41,7 @@ class Image(BaseModel):
 	# data = BlobField()
 	title = CharField()
 	url = CharField()
-	
+
 	def get_images_from_post(self):
 		return (Image.select().where(Image.post == self.post))
 

@@ -1,4 +1,4 @@
-from flask import (Flask, g, render_template, flash, redirect, url_for, request)
+from flask import (Flask, g, render_template, flash, redirect, url_for, request, session)
 from flask.ext.login import (LoginManager, login_user, logout_user, login_required, current_user)
 from flask_peewee.db import Database
 from flask.ext.bcrypt import check_password_hash
@@ -24,7 +24,7 @@ DATABASE = {
 		}
 DEBUG = True
 TESTING = False
-
+app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 DROPBOX_KEY = '	ijsequnfjgbs2v3'
 DROPBOX_SECRET = 'athtuhs7doybhes'
 DROPBOX_ACCESS_TYPE = 'app_folder'
@@ -46,7 +46,29 @@ dropbox.register_blueprint(url_prefix='/dropbox')
 
 @app.route('/')
 def root():
-    return render_template('index.html')
+	print "hello"
+	return render_template('index.html')
+
+@app.route('/login', methods=["POST"])
+def login():
+	print "login"
+	post = request.get_json()
+	user = User.select().where(User.email == post.get('email')).get()
+	print user
+	print user.twitter
+	if user and check_password_hash(user.password, post.get('password')):
+		session['logged_in'] = True
+		status = True
+		return json.dumps({"result":status})
+	else:
+		status = False
+		return json.dumps({"result":status})
+
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    return json.dumps({'result': 'success'})
+
 
 @app.route('/user/all')
 def all_users():
@@ -225,4 +247,5 @@ def images_from_post(id):
 	return json.dumps(helpers.models_to_dict(images), default=helpers.date_handler)
 
 if __name__ == '__main__':
+	User.new(twitter="abdulachik", email="abdulachik@gmail.com", password="aa121292", bio="Programer, musician, cat lover")
 	app.run()
