@@ -13,12 +13,12 @@ db = MySQLDatabase(
 
 def initialize():
 	db.connect()
-	db.create_tables([User, Image, Tag, Post, TagPost], safe=True)
+	db.create_tables([User, Tag, Post, TagPost], safe=True)
 	db.close()
 
 def drop():
 	db.connect()
-	db.drop_tables([User, Image, Tag, Post, TagPost], safe=True, cascade=True)
+	db.drop_tables([User, Tag, Post, TagPost], safe=True, cascade=True)
 	db.close()
 
 def create_test_data():
@@ -36,15 +36,11 @@ def create_test_data():
 		content = result.json()['text']
 		short_content = content.split('\n')[:1]
 		short_content = "".join(reversed(short_content))
-
-		print "Image for post #%s"% (p + 1)
-		Image.create(url="http://placehold.it/640x480&text=Image", title='image_%s'%(p+1), post=p+1)
 		Post.create(
 			title="post_%s"%p, 
 			content=content, author=1, 
 			short_content=short_content, 
-			published=publish[random.randint(0,1)],
-			image=p+1
+			published=publish[random.randint(0,1)]
 			)
 		print "Post: #%s"%p
 		for t in range(random.randint(0,10)):

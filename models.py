@@ -62,7 +62,6 @@ class Post(BaseModel):
 	short_content = TextField()
 	published = BooleanField()
 	# tags
-	image = ForeignKeyField(Image, related_name='post_header')
 
 	def get_posts_from_user(self):
 		return Post.select().where(Post.user == self.user)

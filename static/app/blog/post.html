@@ -1,8 +1,5 @@
 <div class="container post">
-    <div class="row">
-
-        <img class="thumbnail center_image" ng-src="{{ post.image.url }}">
-        <div class="col-md-4 post-title">
+        <div class="text-center">
             <h1>{{ post.title }}<a href="{{ post.maps }}">@{{ post.geo }}</a></h1>
             <p class="author">
                 <strong>
@@ -17,10 +14,9 @@
                 <i class="fa fa-arrow-left"></i>  go back
             </a>
         </div>
-        <div class="col-md-8 col-md-offset-0 post-body">
+        <div class="post-body">
             <div ta-bind ng-model="post.content">
                 {{ post.content }}
             </div>
         </div>
-    </div>
 </div>

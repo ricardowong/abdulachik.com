@@ -11,17 +11,20 @@
 			    		</button>
 			    		<ul class="nav nav-pills nav-justified" ng-show="createPost">
 			    			<li role="presentation">
-			    				<button ng-click="newPost(true)" type="submit" class="btn btn-default btn-block">
+			    				<button ng-show="!postForm.published" ng-click="newPost(true)" type="button" class="btn btn-default btn-block">
 					        		<i class="fa fa-mail-reply"></i>  Submit
+					        	</button>
+					        	<button ng-show="postForm.published" ng-click="updatePost(post);" type="button" class="btn btn-success btn-block">
+					        		<i class="fa fa-mail-refresh"></i>  Update
 					        	</button>
 			    			</li>
 			    			<li role="presentation">
-			    				<button ng-click="newPost(false)" type="submit" class="btn btn-primary btn-block">
+			    				<button ng-click="newPost(false)" type="button" class="btn btn-primary btn-block">
 					        		<i class="fa fa-paperclip"></i>  Draft
 					        	</button>
 			    			</li>
 			    			<li role="presentation">
-			    				<button ng-click="createPost = !createPost" type="submit" class="btn btn-danger btn-block">
+			    				<button ng-click="createPost = !createPost" type="button" class="btn btn-danger btn-block">
 					        		<i class="fa fa-times"></i>  Cancel
 					        	</button>
 			    			</li>
@@ -39,6 +42,27 @@
 			    	</li>
 			    </ul>
 		    </div>
+		    <div class="panel panel-default" ng-show="createPost">
+				<div class="panel-heading">Add tags to the new entry</div>
+		    	<div class="panel-body">
+		    		<div class="form-group">
+		    				<input type="text" ng-model="tagTitle" ng-style="{ width : '85%' }" placeholder="add tag">		            
+		    				<button type="button" class="btn btn-default" ng-click="addTag(tagTitle)">
+				                <i class="fa fa-plus"></i> add
+				            </button>
+		    		</div>
+				    <ul id="tagsList" class="list-unstyled">
+			            <li ng-repeat="tag in tags | filter:tagTitle">
+			                <a  class="btn btn-block" 
+			                	ng-init="tag.isSelected = false" 
+			                	ng-class="tag.isSelected ? 'btn-success' : 'btn-default' " 
+			                	ng-click="tag.isSelected ? untagPost(tag) : tagPost(tag); tag.isSelected = !tag.isSelected" 
+			                	ng-style="tag.isSelected? { color : 'white' } : { color : 'rgb(102, 102, 102)' }">{{ tag.title }}
+			                </a>
+			            </li>
+			        </ul>
+		        </div>
+		    </div>
     	</div>
     	<div class="col-md-8">
     		<div class="panel panel-default" ng-show="!createPost">
@@ -48,7 +72,7 @@
 			  <table class="table">
 			  	<thead>
 			  		<tr>
-			  			<th>#</th>
+			  			<th>Published</th>
 				  		<th>Title</th>
 				  		<th>Date</th>
 				  		<th>Options</th>
@@ -71,24 +95,32 @@
 			  				{{ post.date |  date: format: 'medium' }}
 			  			</td>
 			  			<td>
-			  				<button class="btn btn-default" ng-click="createPost = !createPost; postForm = post">
+			  				<div>
+			  					<button type="button" class="btn btn-default" ng-click="createPost = !createPost; postForm = post">
 			  					<i class="fa fa-pencil-square-o"></i>
 			  				</button>
-			  				<button class="btn btn-danger" ng-click="deletePost(post)">
+			  				<button type="button" class="btn btn-danger" ng-click="deletePost(post)">
 			  					<i class="fa fa-times"></i>
 			  				</button>
+			  				</div>
 			  			</td>
 			  		</tr>
 			  	</tbody>
 			  	<tfoot></tfoot>
 			  </table>
 			</div>
-
-    		<form  ng-show="createPost" class="form-group">
-		    	<input type="text" placeholder="title of publication" ng-model="postForm.title" class="form-control">
-			  	<text-angular name="content" ng-model="postForm.content" placeholder="Write something you want to share...">
-		        </text-angular>
-		    </form>
+			<div class="panel panel-default"  ng-show="createPost">
+				<div class="panel-heading">
+					New entry
+				</div>
+				<div class="panel-body">
+					<form  class="form-group">
+				    	<input type="text" placeholder="title of publication" ng-model="postForm.title" class="form-control">
+					  	<text-angular name="content" ng-model="postForm.content" placeholder="Write something you want to share...">
+				        </text-angular>
+				    </form>	
+				</div>
+			</div>
     	</div>
     </div>
 </div>

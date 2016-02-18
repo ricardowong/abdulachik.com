@@ -148,19 +148,56 @@ def new_post():
 		published=post.get('published')
 		)
 	new_post.save()
-	return json.dumps({ "response" : "OK!" })
+	return json.dumps({ "response" : "OK!" , "id" : new_post.id })
 
-@app.route('/imagepost/<imageid>/<postid>', methods=["POST"])
-def image_in_post(imageid, postid):
-	imagepost = ImagePost.create(image=imageid, post=postid)
-	imagepost.save()
-	return json.dumps({ "response" : "OK!" })
-
-@app.route('/tagpost/<tagid>/<postid>', methods=["POST"])
-def tag_in_post(tagid, postid):
-	tagpost = TagPost.create(tag=tagid, post=postid)
-	tagpost.save()
+@app.route('/tagpost/<postid>', methods=["POST"])
+def tag_in_post(postid):
+	tags = request.get_json()
+	for tag in tags:
+		TagPost.create(tag=tag['id'], post=postid)
 	return json.dumps({ "response" : "OK!"})
+
+@app.route('/tag/all')
+def all_tags():
+	tags = Tag.select()
+	return json.dumps(helpers.models_to_dict(tags), default=helpers.date_handler)
+
+@app.route('/tag/<id>', methods=['GET', 'DELETE', 'PUT'])
+def tag(id):
+	if request.method == "GET":
+		tag = Tag.select().where(Tag.id == id).get()
+		return json.dumps(model_to_dict(tag), default=helpers.date_handler)
+
+	if request.method == "DELETE":
+		tag = Tag.delete().where(Tag.id == id)
+		tag.execute()
+		return json.dump({ "response" : "OK!" })
+
+	if request.method == "PUT":
+		tag = Tag.update(
+				name=request.form['name']
+			).where(Tag.id == id)
+		tag.execute()
+		return json.dumps({ "response" : "OK!" })
+
+@app.route('/tag/new', methods=["POST"])
+def new_tag():
+	tag = Tag.create(
+		title=request.get_json().get('title')
+		)
+	tag.save()
+	return json.dumps(model_to_dict(tag))
+
+@app.route('/post/<id>/tags')
+def tags_from_post(id):
+	tags = Tag.select().join(TagPost).join(Post).where(TagPost.post == id)
+	return json.dumps(helpers.models_to_dict(tags), default=helpers.date_handler)
+
+@app.route('/post/<id>/images')
+def images_from_post(id):
+	images = Image.select().join(ImagePost).join(Post).where(ImagePost.post == id)
+	return json.dumps(helpers.models_to_dict(images), default=helpers.date_handler)
+
 
 @app.route('/image/all')
 def all_images():
@@ -212,47 +249,6 @@ def new_image():
 
     return json.dumps({ "response" : "OK!" })
 
-@app.route('/tag/all')
-def all_tags():
-	tags = Tag.select()
-	return json.dumps(helpers.models_to_dict(tags), default=helpers.date_handler)
-
-@app.route('/tag/<id>', methods=['GET', 'DELETE', 'PUT'])
-def tag(id):
-	if request.method == "GET":
-		tag = Tag.select().where(Tag.id == id).get()
-		return json.dumps(model_to_dict(tag), default=helpers.date_handler)
-
-	if request.method == "DELETE":
-		tag = Tag.delete().where(Tag.id == id)
-		tag.execute()
-		return json.dump({ "response" : "OK!" })
-
-	if request.method == "PUT":
-		tag = Tag.update(
-				name=request.form['name']
-			).where(Tag.id == id)
-		tag.execute()
-		return json.dumps({ "response" : "OK!" })
-
-@app.route('/tag/new', methods=["POST"])
-def new_tag():
-	tag = Tag.create(
-		name=request.form['name'],
-		post=request.form['post']
-		)
-	tag.save()
-	return json.dumps({ "response" : "OK!" })
-
-@app.route('/post/<id>/tags')
-def tags_from_post(id):
-	tags = Tag.select().join(TagPost).join(Post).where(TagPost.post == id)
-	return json.dumps(helpers.models_to_dict(tags), default=helpers.date_handler)
-
-@app.route('/post/<id>/images')
-def images_from_post(id):
-	images = Image.select().join(ImagePost).join(Post).where(ImagePost.post == id)
-	return json.dumps(helpers.models_to_dict(images), default=helpers.date_handler)
 
 if __name__ == '__main__':
 	User.new(twitter="abdulachik", email="abdulachik@gmail.com", password="aa121292", bio="Programer, musician, cat lover")

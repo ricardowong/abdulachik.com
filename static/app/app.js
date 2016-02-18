@@ -16,9 +16,9 @@ var abdulBlog = angular.module('abdul-blog', ['ngResource', 'ngRoute', 'textAngu
       .when('/dashboard', {
         templateUrl : 'static/app/dashboard/dashboard.html',
         controller: 'DashboardController',
-        access: {restricted: true}})
+        access: {restricted: false}})
       .when('/post/:postId', {
-        templateUrl: 'static/app/blog/blog.html',
+        templateUrl: 'static/app/blog/post.html',
         controller: 'BlogController',
         access: {restricted: false}})
       .otherwise({redirectTo: '/'});
