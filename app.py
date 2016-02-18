@@ -129,9 +129,11 @@ def post(id):
 		return json.dumps({ "response" : "OK!" })
 
 	if request.method == "PUT":
+		put = request.get_json()
 		post = Post.update(
-				content=request.form['content'],
-				date=request.form['date']
+				title=put.get('title'),
+				content=put.get('content'),
+				published=put.get('published')
 			).where(Post.id == id)
 		post.execute()
 		return json.dumps({ "response" : "OK!" })
@@ -142,7 +144,8 @@ def new_post():
 	new_post = Post.create(
 		title=post.get('title'),
 		content=post.get('content'),
-		author=current_user.id
+		author=current_user.id,
+		published=post.get('published')
 		)
 	new_post.save()
 	return json.dumps({ "response" : "OK!" })

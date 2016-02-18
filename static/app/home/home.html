@@ -5,11 +5,20 @@
     <li><a href="#/soon">Music </a></li>
     <li><a href="#/soon">Opinions </a></li>
 </ul> -->
-<ul id="post-feed">
-    <li ng-repeat="post in posts">
-        <a href="#/post/{{post.id}}">
-            <h4>{{ post.title }}</h4>
-        </a>
-        <small>{{ post.date | date: format: 'longDate'}}</small>
-    </li>
-</ul>
+<div id="post-feed" class="list-group">
+    <div ng-repeat="post in posts">
+        <a href="#/post/{{post.id}}" ng-show="post.published" class="list-group-item">
+                <img class="thumbnail center_image" ng-src="{{ post.image.url }}">
+                <h4 class="list-group-item-heading">
+                    {{ post.title }}
+                    <small>
+                        {{ post.date | date: format: 'longDate'}}
+                    </small>
+                </h4>
+                <div style="margin-top:25px" class="list-group-item-text" ta-bind ng-model="post.short_content">
+                    {{ post.short_content }}
+                </div>{{ post.content.lenght > 30 ? '...' : '' }}
+        </div>
+        </a> 
+    </div>
+</div>

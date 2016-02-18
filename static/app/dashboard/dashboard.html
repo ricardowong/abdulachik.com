@@ -1,23 +1,92 @@
 <div class="container" id="dashboard">
+	<h6>Welcome<small> {{ user.first_name }}</small></h6>
     <div class="row">
     	<div class="col-md-4">
-    		<ul class="nav nav-pills nav-stacked">
-		    	<li>
-		    		<a ng-show="!createPost" ng-click="createPost = !createPost">New Post</a>
-		        	<button  ng-show="createPost" ng-click="newPost()" type="submit" class="btn btn-default">Submit post</button>
-		    	</li>
-		    	<li>		    		
-		    		<a>Email</a>
-		    	</li>
-		    	<li>
-		    		<a>Portafolio</a>
-		    	</li>
-		    </ul>
+    		<div class="panel panel-default">
+				<div class="panel-heading">Menu</div>
+	    		<ul class="nav nav-pills nav-stacked">
+			    	<li>
+			    		<button type="button" class="btn btn-default btn-block" ng-show="!createPost" ng-click="createPost = !createPost">	
+			    			<i class="fa fa-file-text"></i> New Post
+			    		</button>
+			    		<ul class="nav nav-pills nav-justified" ng-show="createPost">
+			    			<li role="presentation">
+			    				<button ng-click="newPost(true)" type="submit" class="btn btn-default btn-block">
+					        		<i class="fa fa-mail-reply"></i>  Submit
+					        	</button>
+			    			</li>
+			    			<li role="presentation">
+			    				<button ng-click="newPost(false)" type="submit" class="btn btn-primary btn-block">
+					        		<i class="fa fa-paperclip"></i>  Draft
+					        	</button>
+			    			</li>
+			    			<li role="presentation">
+			    				<button ng-click="createPost = !createPost" type="submit" class="btn btn-danger btn-block">
+					        		<i class="fa fa-times"></i>  Cancel
+					        	</button>
+			    			</li>
+			    		</ul>
+			    	</li>
+			    	<li>		    		
+			    		<button type="button" class="btn btn-default btn-block">
+			    			<i class="fa fa-comment"></i> Messages
+			    		</button>
+			    	</li>
+			    	<li >
+			    		<button type="button" class="btn btn-default btn-block">
+			    			<i class="fa fa-picture-o"></i> Portafolio
+			    		</button>
+			    	</li>
+			    </ul>
+		    </div>
     	</div>
     	<div class="col-md-8">
+    		<div class="panel panel-default" ng-show="!createPost">
+
+			  <div class="panel-heading">Blog entries</div>
+
+			  <table class="table">
+			  	<thead>
+			  		<tr>
+			  			<th>#</th>
+				  		<th>Title</th>
+				  		<th>Date</th>
+				  		<th>Options</th>
+			  		</tr>
+			  	</thead>
+			  	<tbody>
+			  		<tr ng-repeat="post in posts">
+			  			<td>
+			  				<button class="btn btn-default"  ng-show="!post.published" ng-click="post.published = !post.published; updatePost(post)">
+			  					<i class="fa fa-square-o"></i>
+			  				</button>
+			  				<button class="btn btn-success" ng-show="post.published" ng-click="post.published = !post.published; updatePost(post)">
+			  					<i class="fa fa-check-square-o"></i>
+			  				</button>
+			  			</td>
+			  			<td>
+			  				{{ post.title }}
+			  			</td>
+			  			<td>
+			  				{{ post.date |  date: format: 'medium' }}
+			  			</td>
+			  			<td>
+			  				<button class="btn btn-default" ng-click="createPost = !createPost; postForm = post">
+			  					<i class="fa fa-pencil-square-o"></i>
+			  				</button>
+			  				<button class="btn btn-danger" ng-click="deletePost(post)">
+			  					<i class="fa fa-times"></i>
+			  				</button>
+			  			</td>
+			  		</tr>
+			  	</tbody>
+			  	<tfoot></tfoot>
+			  </table>
+			</div>
+
     		<form  ng-show="createPost" class="form-group">
-		    	<input type="text" placeholder="title" ng-model="post.title" class="form-control">
-			  	<text-angular name="content" ng-model="post.content" placeholder="content">
+		    	<input type="text" placeholder="title of publication" ng-model="postForm.title" class="form-control">
+			  	<text-angular name="content" ng-model="postForm.content" placeholder="Write something you want to share...">
 		        </text-angular>
 		    </form>
     	</div>

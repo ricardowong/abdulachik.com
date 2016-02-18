@@ -205,6 +205,11 @@ textarea:focus, textarea.form-control:focus, input.form-control:focus, input[typ
 	background-color: #666666;
 }
 
-
+.center_image{
+    float: none;
+    margin: 0 auto;  
+    height:400px;
+    background-size:cover;
+}
 #dashboard{
  }

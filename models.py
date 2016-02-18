@@ -1,4 +1,4 @@
-from peewee import (Model, MySQLDatabase, CompositeKey, BlobField, CharField, TextField, DateTimeField, ForeignKeyField,IntegrityError, DoesNotExist)
+from peewee import (Model, MySQLDatabase, CompositeKey, BlobField, CharField, BooleanField, TextField, DateTimeField, ForeignKeyField,IntegrityError, DoesNotExist)
 from flask.ext.bcrypt import generate_password_hash
 from flask.ext.login import UserMixin
 from app import db
@@ -6,17 +6,22 @@ import json
 import datetime
 
 class BaseModel(Model):
+	
+	def __repr__(self):
+		return self.title
+
 	class Meta:
 		database = MySQLDatabase('abdul_blog', user='root', passwd='aa121292', port=3306, host='localhost')
 
 class User(BaseModel, UserMixin):
-	# name = CharField()
+	# first_name = CharField()
+	# last_name = CharField()
 	# geo
 	# maps
 	twitter = CharField()
 	email = CharField()
 	password = CharField()
-	bio = TextField(default="")
+	bio = TextField()
 
 	@classmethod
 	def new(cls, twitter, email, password, bio):
@@ -32,15 +37,7 @@ class User(BaseModel, UserMixin):
 
 	def __repr__(self):
 		return self.email
-class Post(BaseModel):
-	title = CharField()
-	content = TextField()
-	date = DateTimeField(default=datetime.datetime.now())	
-	author = ForeignKeyField(User, related_name='post_author')
-	# tags
 
-	def get_posts_from_user(self):
-		return Post.select().where(Post.user == self.user)
 
 class Image(BaseModel):
 	# data = BlobField()
@@ -50,22 +47,29 @@ class Image(BaseModel):
 	def get_images_from_post(self):
 		return (Image.select().where(Image.post == self.post))
 
-class ImagePost(BaseModel):
-	image = ForeignKeyField(Image, related_name='image_in_post')
-	post = ForeignKeyField(Post, related_name='post_has_image')
-
-	class Meta:
-		primary_key = CompositeKey('image', 'post')
 
 class Tag(BaseModel):
-	name = CharField()
+	title = CharField()
 
 	def get_tags_from_post(self):
 		return (Tag.select().where(Tag.id == self.post))
 
+class Post(BaseModel):
+	title = CharField()
+	content = TextField()
+	date = DateTimeField(default=datetime.datetime.now())	
+	author = ForeignKeyField(User, related_name='post_author')
+	short_content = TextField()
+	published = BooleanField()
+	# tags
+	image = ForeignKeyField(Image, related_name='post_header')
+
+	def get_posts_from_user(self):
+		return Post.select().where(Post.user == self.user)
+
 class TagPost(BaseModel):
-	tag = ForeignKeyField(Tag, related_name='tag_in_post')
-	post = ForeignKeyField(Post, related_name='post_has_tag')
+	tag = ForeignKeyField(Tag, related_name='tag_in_post', on_delete='CASCADE')
+	post = ForeignKeyField(Post, related_name='post_has_tag', on_delete='CASCADE')
 
 	class Meta:
 		primary_key = CompositeKey('tag', 'post')

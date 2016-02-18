@@ -1,6 +1,8 @@
 <div class="container post">
     <div class="row">
-        <div class="col-md-6 post-title">
+
+        <img class="thumbnail center_image" ng-src="{{ post.image.url }}">
+        <div class="col-md-4 post-title">
             <h1>{{ post.title }}<a href="{{ post.maps }}">@{{ post.geo }}</a></h1>
             <p class="author">
                 <strong>
@@ -10,8 +12,12 @@
                 </strong> 
                 <span class="text-muted">{{ post.date | date: format: 'longDate' }} </span>
             </p>
+
+            <a class="btn btn-default" href="#/">
+                <i class="fa fa-arrow-left"></i>  go back
+            </a>
         </div>
-        <div class="col-md-6 col-md-offset-0 post-body">
+        <div class="col-md-8 col-md-offset-0 post-body">
             <div ta-bind ng-model="post.content">
                 {{ post.content }}
             </div>
