@@ -1,7 +1,6 @@
 abdulBlog.factory('AuthService',
   ['$q', '$timeout', '$http', '$rootScope',
   function ($q, $timeout, $http, $rootScope) {
-    console.log("hello");
 
     // create user variable
     $rootScope.user = null;
@@ -29,7 +28,6 @@ abdulBlog.factory('AuthService',
             $rootScope.user = false;
             deferred.reject();
           }
-          console.log(data, status);
         })
         // handle error
         .error(function (data) {

@@ -1,4 +1,4 @@
-from peewee import (Model, MySQLDatabase, CompositeKey, BlobField, CharField, TextField, DateTimeField, ForeignKeyField,IntegrityError)
+from peewee import (Model, MySQLDatabase, CompositeKey, BlobField, CharField, TextField, DateTimeField, ForeignKeyField,IntegrityError, DoesNotExist)
 from flask.ext.bcrypt import generate_password_hash
 from flask.ext.login import UserMixin
 from app import db
@@ -10,6 +10,9 @@ class BaseModel(Model):
 		database = MySQLDatabase('abdul_blog', user='root', passwd='aa121292', port=3306, host='localhost')
 
 class User(BaseModel, UserMixin):
+	# name = CharField()
+	# geo
+	# maps
 	twitter = CharField()
 	email = CharField()
 	password = CharField()
@@ -27,6 +30,8 @@ class User(BaseModel, UserMixin):
 		except IntegrityError:
 			raise ValueError("User already exists")
 
+	def __repr__(self):
+		return self.email
 class Post(BaseModel):
 	title = CharField()
 	content = TextField()

@@ -34,31 +34,34 @@ db = Database(app)
 dropbox = Dropbox(app)
 dropbox.register_blueprint(url_prefix='/dropbox')
 
-# @app.before_first_request
-# def create_user():
-#     for Model in (User, Role, UserRoles):
-#     	try:
-#         	Model.drop_table(fail_silently=True)
-#         except:
-#         	print "nonono"
-#         Model.create_table(fail_silently=True)
-#     user_datastore.create_user(email='abdulachik@gmail.com', password='aa121292', twitter='abdulachik')
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'root'
+
+@login_manager.user_loader
+def load_user(id):
+	try:
+		return User.get(User.id == id)
+	except DoesNotExist:
+		return None
+
+@app.before_first_request
+def before_first_request():
+    pass
+
 
 @app.route('/')
 def root():
-	print "hello"
 	return render_template('index.html')
 
 @app.route('/login', methods=["POST"])
 def login():
-	print "login"
 	post = request.get_json()
 	user = User.select().where(User.email == post.get('email')).get()
-	print user
-	print user.twitter
 	if user and check_password_hash(user.password, post.get('password')):
-		session['logged_in'] = True
+		# session['logged_in'] = True
 		status = True
+		login_user(user)
 		return json.dumps({"result":status})
 	else:
 		status = False
@@ -66,7 +69,8 @@ def login():
 
 @app.route('/logout')
 def logout():
-    session.pop('logged_in', None)
+    # session.pop('logged_in', None)
+    logout_user()
     return json.dumps({'result': 'success'})
 
 
@@ -134,12 +138,13 @@ def post(id):
 
 @app.route('/post/new', methods=["POST"])
 def new_post():
-	user = current_user
-	post = Post.create(
-		content=request.form['content'],
-		user=user
+	post = request.get_json()
+	new_post = Post.create(
+		title=post.get('title'),
+		content=post.get('content'),
+		author=current_user.id
 		)
-	post.save()
+	new_post.save()
 	return json.dumps({ "response" : "OK!" })
 
 @app.route('/imagepost/<imageid>/<postid>', methods=["POST"])

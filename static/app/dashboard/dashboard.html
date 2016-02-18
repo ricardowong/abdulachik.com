@@ -1,18 +1,23 @@
 <div class="container" id="dashboard">
     <div class="row">
     	<div class="col-md-4">
-    		<ul class="nav">
+    		<ul class="nav nav-pills nav-stacked">
 		    	<li>
-		    		<a>New Post</a>
-		    		<a>Portafolio</a>
+		    		<a ng-show="!createPost" ng-click="createPost = !createPost">New Post</a>
+		        	<button  ng-show="createPost" ng-click="newPost()" type="submit" class="btn btn-default">Submit post</button>
+		    	</li>
+		    	<li>		    		
 		    		<a>Email</a>
+		    	</li>
+		    	<li>
+		    		<a>Portafolio</a>
 		    	</li>
 		    </ul>
     	</div>
     	<div class="col-md-8">
-    		<form>
-		    	<input type="text" placeholder="title">
-			  	<text-angular name="htmlcontent" ng-model="htmlcontent">
+    		<form  ng-show="createPost" class="form-group">
+		    	<input type="text" placeholder="title" ng-model="post.title" class="form-control">
+			  	<text-angular name="content" ng-model="post.content" placeholder="content">
 		        </text-angular>
 		    </form>
     	</div>

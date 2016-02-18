@@ -11,37 +11,52 @@
   <link href="static/css/app.css" rel="stylesheet">
 </head>
 <body>
- <header>
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header"><a class="navbar-brand navbar-link" href="#"><span class="glyphicon glyphicon-console"></span><span class="text-title">abdul-blog.js</span></a>
-                <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
+  <div id="wrapper">
+    <header>
+      <nav class="navbar navbar-default">
+          <div class="container">
+              <div class="navbar-header"><a class="navbar-brand navbar-link" href="#"><span class="glyphicon glyphicon-console"></span><span class="text-title">abdul-blog.js</span></a>
+                  <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+              </div>
+              <div class="collapse navbar-collapse" id="navcol-1">
+                  <ul class="nav navbar-nav navbar-right">
+                      <!-- <li class="active" role="presentation"><a href="#/">Home</a></li>
+                      <li role="presentation"><a href="#/portfolio">Portfolio</a></li>
+                      <li role="presentation"><a href="#/music">Music</a></li>
+                      <li role="presentation"><a href="#/contact">Contact me</a></li> -->
+                      <li class="active" role="presentation"><a href="#/">Home</a></li>
+                      <li role="presentation"><a href="#/soon">Portfolio</a></li>
+                      <li role="presentation"><a href="#/soon">Music</a></li>
+                      <li role="presentation"><a href="#/soon">Contact me</a></li>
+                      <li ng-if="!user" role="presentation"><a data-toggle="modal" data-target=".login">Login</a></li>
+                      <li ng-if="user" role="presentation" ng-controller="LogoutController" ng-cloak>
+                        <a ng-click='logout()'>Logout</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </nav>
+      <div class="modal fade login" tabindex="-1" role="dialog" aria-labelledby="login">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Super power mode</h4>
             </div>
-            <div class="collapse navbar-collapse" id="navcol-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- <li class="active" role="presentation"><a href="#/">Home</a></li>
-                    <li role="presentation"><a href="#/portfolio">Portfolio</a></li>
-                    <li role="presentation"><a href="#/music">Music</a></li>
-                    <li role="presentation"><a href="#/contact">Contact me</a></li> -->
-                    <li class="active" role="presentation"><a href="#/">Home</a></li>
-                    <li role="presentation"><a href="#/soon">Portfolio</a></li>
-                    <li role="presentation"><a href="#/soon">Music</a></li>
-                    <li role="presentation"><a href="#/soon">Contact me</a></li>
-                    <li ng-show="!user" role="presentation"><a href="#/login">Login</a></li>
-                    <li ng-show="user" role="presentation" ng-controller="LogoutController">
-                      <a ng-click='logout()'>Logout</a>
-                    </li>
-                </ul>
+            <div class="modal-body">
+              <login-modal>
             </div>
+          </div>
         </div>
-    </nav>
-  </header>
-  <div class="container" ng-view></div>
+      </div>
+    </header>
+    <div class="container" id="content" ng-view></div>
+  </div>
   <footer>
     <h5>abdul-blog.js © 2016</h5>
   </footer>
@@ -57,11 +72,12 @@
 
   <script src="static/app/app.js"></script>
   <script src="static/app/services.js"></script>
+  <script src="static/app/directives.js"></script>
   <script src="static/app/home/home-controller.js"></script>
   <script src="static/app/redirects/redirects-controller.js"></script>
-  <script src="static/app/auth/login-controller.js"></script>
   <script src="static/app/auth/logout-controller.js"></script>
   <script src="static/app/dashboard/dashboard-controller.js"></script>
+  <script src="static/app/blog/blog-controller.js"></script>
   
   
 </body>
