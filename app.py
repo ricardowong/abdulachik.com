@@ -1,6 +1,6 @@
 from flask import (Flask, g, render_template, flash, redirect, url_for, request, session)
 from flask.ext.login import (LoginManager, login_user, logout_user, login_required, current_user)
-from flask_peewee.db import Database
+# from flask_peewee.db import Database
 from flask.ext.bcrypt import check_password_hash
 from playhouse.shortcuts import model_to_dict
 from flask.ext.login import current_user
@@ -31,8 +31,8 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 # DROPBOX_SECRET = 'athtuhs7doybhes'
 # DROPBOX_ACCESS_TYPE = 'app_folder'
 # dropbox = Dropbox(app)
-# dropbox.register_blueprint(url_prefix='/dropbox')
-db = Database(app)
+# # dropbox.register_blueprint(url_prefix='/dropbox')
+# db = Database(app)
 
 app.config.from_object(__name__)
 

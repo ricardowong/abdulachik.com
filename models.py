@@ -1,7 +1,7 @@
 from peewee import (Model, MySQLDatabase, CompositeKey, BlobField, CharField, BooleanField, TextField, DateTimeField, ForeignKeyField,IntegrityError, DoesNotExist)
 from flask.ext.bcrypt import generate_password_hash
 from flask.ext.login import UserMixin
-from app import db
+# from app import db
 import json
 import datetime
 
