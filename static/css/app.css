@@ -1,9 +1,8 @@
-/*header{
+header{
   height:300px;
   background:url(../img/antwerpen-centralstation.jpg) no-repeat center;
   background-size:cover;
 }
-*/
 
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none !important;
@@ -15,9 +14,6 @@ html, body{height: 100%;}
 
 #wrapper{ min-height: 100%; }
 
-header{
-  background: black;
-}
 
 #content{
   position:relative;
