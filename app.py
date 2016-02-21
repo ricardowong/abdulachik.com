@@ -262,5 +262,6 @@ def new_image():
 
 
 if __name__ == '__main__':
+	User.new(twitter="barackobama", email="demo@demo.com", password="0000", bio="Demo user for blog testing")
 	User.new(twitter="abdulachik", email="abdulachik@gmail.com", password="aa121292", bio="Programer, musician, cat lover")
 	app.run()
