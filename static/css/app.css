@@ -16,6 +16,7 @@ html, body{height: 100%;}
 
 
 #content{
+  margin-top:25px;
   position:relative;
 }
 
@@ -146,6 +147,9 @@ nav.navbar.navbar-default{
 .post-body{
   margin-top:30px;
   font-size:16px;
+}
+p{
+  color: rgba(0, 0, 0, 0.8);
 }
 
 @media (min-width:992px) {
