@@ -51,7 +51,6 @@
 				                <i class="fa fa-plus"></i> add
 				            </button>
 		    		</div>
-<!-- 		    		var elementPos = array.map(function(x) {return x.id; }).indexOf(idYourAreLookingFor); -->
 				    <ul id="tagsList" class="list-unstyled">
 			            <li ng-repeat="tag in tags | filter:tagTitle">
 			                <a  class="btn btn-block" 
@@ -90,7 +89,7 @@
 			  				</button>
 			  			</td>
 			  			<td>
-			  				{{ post.title }}
+			  				<a href="/post/{{ post.id }}">{{ post.title }}</a>
 			  			</td>
 			  			<td>
 			  				{{ post.date |  date: format: 'medium' }}

@@ -31,6 +31,7 @@ abdulBlog
 			$scope.postForm.published = publish;
 			$http.post('/post/new', $scope.postForm).success(function(response){
 				$scope.createPost = !$scope.createPost;
+				$scope.posts.push(response);
 				$scope.postForm = {};
 				if ($scope.postForm.tags){
 					$http.post('/tagpost/' + response.id, { "tags" : $scope.postForm.tags }).success(function(response){
@@ -42,8 +43,9 @@ abdulBlog
 
 		$scope.updatePost = function(post){
 			var url = '/post/' + post.id
-			$http.put(url, post);
-			$scope.postForm = {};
+			$http.put(url, post).success(function(success){
+				$scope.postForm = {};
+			});
 		};
 
 		$scope.deletePost = function(post){
