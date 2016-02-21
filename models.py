@@ -5,14 +5,16 @@ from flask.ext.login import UserMixin
 import json
 import datetime
 
+db = MySQLDatabase('abdul_blog', user='abdulachik', passwd='aa121292', port=3306, host='abdulachik.mysql.pythonanywhere-services.com')
+
 class BaseModel(Model):
 	
 	def __repr__(self):
 		return self.title
 
 	class Meta:
-		database = MySQLDatabase('abdul_blog', user='abdulachik$', passwd='aa121292', port=3306, host='abdulachik.mysql.pythonanywhere-services.com')
-
+		database = db
+		
 class User(BaseModel, UserMixin):
 	# first_name = CharField()
 	# last_name = CharField()
@@ -73,3 +75,13 @@ class TagPost(BaseModel):
 		return self.post.title + self.tag.title
 	class Meta:
 		primary_key = CompositeKey('tag', 'post')
+
+def initialize():
+	db.connect()
+	db.create_tables([User, Tag, Post, TagPost], safe=True)
+	db.close()
+
+def drop():
+	db.connect()
+	db.drop_tables([User, Tag, Post, TagPost], safe=True, cascade=True)
+	db.close()
