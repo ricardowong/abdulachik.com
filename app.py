@@ -47,9 +47,19 @@ def load_user(id):
 	except DoesNotExist:
 		return None
 
-@app.before_first_request
-def before_first_request():
-    pass
+
+@app.before_request
+def before_request():
+	g.db = models.db
+	g.db.connect()
+	g.user = current_user
+
+
+
+@app.after_request
+def after_request(response):
+	g.db.close()
+	return response
 
 
 @app.route('/')
