@@ -3,12 +3,11 @@ abdulBlog
 		$scope.postForm = {};
 		$scope.createPost = false;
 		$scope.posts = {};
-		$scope.tagsPost = [];
+		$scope.postForm.tags = [];
 		$http.get('/post/all').success(function(response){
 			$scope.posts = response;
 		});
 
-		$scope.$watch('createPost', function(value){ console.log(value)});
 		$http.get('/tag/all').success(function(response){
 			$scope.tags = response;
 		});
@@ -17,14 +16,25 @@ abdulBlog
 			$scope.posts = data;
 		});
 
+		$scope.$watch('postForm.tags', function(data){
+			try{
+				$scope.tags.map(function(tag){
+					var selected;
+					$scope.postForm.tags.map(function(pTag){
+						tag.selected = tag.selected ? true : pTag.id == tag.id;
+					});
+					return tag;
+				});
+			} catch(e){console.log(e)}
+		});
 		$scope.newPost = function(publish){
 			$scope.postForm.published = publish;
 			$http.post('/post/new', $scope.postForm).success(function(response){
 				$scope.createPost = !$scope.createPost;
 				$scope.postForm = {};
-				if ($scope.tagsPost){
-					$http.post('/tagpost/' + response.id, { "tags" : $scope.tagsPost }).success(function(response){
-						$scope.tagsPost = [];
+				if ($scope.postForm.tags){
+					$http.post('/tagpost/' + response.id, { "tags" : $scope.postForm.tags }).success(function(response){
+						$scope.postForm.tags = [];
 					});
 				};
 			});
@@ -33,11 +43,13 @@ abdulBlog
 		$scope.updatePost = function(post){
 			var url = '/post/' + post.id
 			$http.put(url, post);
+			$scope.postForm = {};
 		};
 
 		$scope.deletePost = function(post){
-			var url = '/post/' + post.id
-			$scope.posts.splice(post.id - 1, 1);
+			var url = '/post/' + post.id;
+			var index = $scope.posts.indexOf(post);
+			$scope.posts.splice(index, 1);
 			$http.delete(url, post.id);
 		};
 
@@ -50,12 +62,13 @@ abdulBlog
 		};
 
 		$scope.tagPost = function(tag){
-			$scope.tagsPost.push(tag);
+			$scope.postForm.tags.push(tag);
+			$scope.containsTag(tag);
 		};
 
 		$scope.untagPost = function(tag){
-			var index = $scope.tagsPost.indexOf(tag);
-			$scope.tagsPost.splice(index, 1);
+			var index = $scope.postForm.tags.indexOf(tag);
+			$scope.postForm.tags.splice(index, 1);
+			$scope.containsTag(tag);
 		};
-
 	}]);	

@@ -10,16 +10,33 @@ abdulBlog
   		$scope.tags = response;
   	});
 
-  	$scope.$watch('filters', function(data){
-  		console.log($scope.filters);
-  	});
-
   	$scope.filterBy = function(tag){
+  		var index = $scope.tags.indexOf(tag);
   		$scope.filters.push(tag);
-  		$scope.tags.splice(tag.id - 1, 1);
+  		$scope.tags.splice(index, 1);
   	};
+
+  	$scope.removeFilter = function(tag){
+  		var index = $scope.filters.indexOf(tag);
+  		$scope.filters.splice(index, 1);
+  		$scope.tags.push(tag);
+  	}
 
   	$scope.search = function(searchText){
+  		$scope.searchTerm = searchText;
   	};
+
+  	$scope.$watch('filters', function(data){
+  	});
+
+  	$scope.$watch('tagSearch', function(data){
+  		try{
+  			if (data.length == 0 || !data){
+  				$scope.searchTerm = "";
+  			}
+  		} catch (e){
+  			console.log(e);
+  		}
+  	});
 
   }]);

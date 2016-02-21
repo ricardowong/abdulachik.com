@@ -59,7 +59,6 @@ class Post(BaseModel):
 	content = TextField()
 	date = DateTimeField(default=datetime.datetime.now())	
 	author = ForeignKeyField(User, related_name='post_author')
-	short_content = TextField()
 	published = BooleanField()
 	# tags
 
@@ -70,5 +69,7 @@ class TagPost(BaseModel):
 	tag = ForeignKeyField(Tag, related_name='tag_in_post', on_delete='CASCADE')
 	post = ForeignKeyField(Post, related_name='post_has_tag', on_delete='CASCADE')
 
+	def __repr__(self):
+		return self.post.title + self.tag.title
 	class Meta:
 		primary_key = CompositeKey('tag', 'post')

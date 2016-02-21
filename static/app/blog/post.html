@@ -1,4 +1,4 @@
-<div class="container post">
+<div class="post">
         <div class="text-center">
             <h1>{{ post.title }}<a href="{{ post.maps }}">@{{ post.geo }}</a></h1>
             <p class="author">
@@ -18,5 +18,15 @@
             <div ta-bind ng-model="post.content">
                 {{ post.content }}
             </div>
+        </div>
+        <div id="tags">
+            <h6><i class="fa fa-tags"></i>Tags: </h6>
+            <ul class="list-inline">
+                <li ng-repeat="tag in tags" class="btn btn-default">
+                    <a>
+                        <i class="fa fa-tag"></i> {{ tag.title }}
+                    </a>
+                </li>
+            </ul>
         </div>
 </div>

@@ -1,6 +1,7 @@
 abdulBlog.factory('AuthService',
-  ['$q', '$timeout', '$http', '$rootScope',
-  function ($q, $timeout, $http, $rootScope) {
+  ['$q', '$timeout', '$http', '$rootScope', '$cookies',
+  function ($q, $timeout, $http, $rootScope, $cookies) {
+    var cookie = $cookies;
 
     // create user variable
     $rootScope.user = null;
@@ -23,6 +24,7 @@ abdulBlog.factory('AuthService',
         .success(function (data, status) {
           if(status === 200 && data.result){
             $rootScope.user = true;
+            cookie.put('session', data.sessionid);
             deferred.resolve();
           } else {
             $rootScope.user = false;
@@ -50,6 +52,7 @@ abdulBlog.factory('AuthService',
         // handle success
         .success(function (data) {
           $rootScope.user = false;
+          cookie.remove('session');
           deferred.resolve();
         })
         // handle error

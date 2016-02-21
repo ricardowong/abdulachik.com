@@ -10,6 +10,7 @@ from models import *
 import json
 import helpers
 import requests
+import uuid
 
 app = Flask(__name__)
 # app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
@@ -115,7 +116,12 @@ def new_user():
 def all_posts():
 	# posts = TagPost.select(TagPost, Tag, Post).join(Tag).switch(TagPost).join(Post).order_by(Post.date)
 	posts = Post.select().order_by(Post.date)
-	return json.dumps(helpers.models_to_dict(posts), default=helpers.date_handler)
+	posts_dict = helpers.models_to_dict(posts)
+	for post in posts_dict:
+		tags = Tag.select().join(TagPost).join(Post).where(TagPost.post == post['id'])
+		tags_dict = helpers.models_to_dict(tags)
+		post["tags"] = tags_dict
+	return json.dumps(posts_dict, default=helpers.date_handler)
 
 @app.route('/post/<id>', methods=['GET', 'DELETE', 'PUT'])
 def post(id):
@@ -152,7 +158,7 @@ def new_post():
 
 @app.route('/tagpost/<postid>', methods=["POST"])
 def tag_in_post(postid):
-	tags = request.get_json()
+	tags = request.get_json().get('tags')
 	for tag in tags:
 		TagPost.create(tag=tag['id'], post=postid)
 	return json.dumps({ "response" : "OK!"})
@@ -192,12 +198,6 @@ def new_tag():
 def tags_from_post(id):
 	tags = Tag.select().join(TagPost).join(Post).where(TagPost.post == id)
 	return json.dumps(helpers.models_to_dict(tags), default=helpers.date_handler)
-
-@app.route('/post/<id>/images')
-def images_from_post(id):
-	images = Image.select().join(ImagePost).join(Post).where(ImagePost.post == id)
-	return json.dumps(helpers.models_to_dict(images), default=helpers.date_handler)
-
 
 @app.route('/image/all')
 def all_images():

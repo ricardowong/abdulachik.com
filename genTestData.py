@@ -30,23 +30,30 @@ def create_test_data():
 		password='passwd_%s'%userid, 
 		bio='random bio for user: %s'%userid
 	)
-	print "User: #%s"%1
-	for p in range(random.randint(0,15)):
+	for t in range(random.randint(5,10)):
+		print "Tag: #%s \n"%(t + 1)
+		Tag.create(title="tag_%s"%t)
+	print "User: #%s \n"%1
+	for p in range(random.randint(5,15)):
 		result = requests.get('http://hipsterjesus.com/api/', params={"paras": random.randint(1, 10)})
 		content = result.json()['text']
-		short_content = content.split('\n')[:1]
-		short_content = "".join(reversed(short_content))
-		Post.create(
-			title="post_%s"%p, 
+		# short_content = content.split('\n')[:1]
+		# short_content = "".join(reversed(short_content))
+		ls_tags = (Tag.select())
+		post = Post.create(
+			title="post_%s \n"%p, 
 			content=content, author=1, 
-			short_content=short_content, 
+			# short_content=short_content, 
 			published=publish[random.randint(0,1)]
 			)
-		print "Post: #%s"%p
-		for t in range(random.randint(0,10)):
-			print "Tag: #%s for post %s"%(t + 1, p + 1)
-			Tag.create(title="tag_%s"%t, post=p+1)
-			TagPost.create(tag=t+1, post=p+1)
+		print "Post: #%s \n"%p
+		for t in range(random.randint(0, len(ls_tags) - 1)):
+			try:
+				tag = TagPost.create(tag=ls_tags[random.randint(1, len(ls_tags) - 1)], post=post) if random.randint(0,1) == 1 else None
+				if tag:
+					print "Post %s tagged with %s tag \n" % (post, tag)
+			except:
+				continue
 
 if __name__ == "__main__":
 	drop()

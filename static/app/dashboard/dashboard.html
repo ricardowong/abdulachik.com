@@ -14,7 +14,7 @@
 			    				<button ng-show="!postForm.published" ng-click="newPost(true)" type="button" class="btn btn-default btn-block">
 					        		<i class="fa fa-mail-reply"></i>  Submit
 					        	</button>
-					        	<button ng-show="postForm.published" ng-click="updatePost(post);" type="button" class="btn btn-success btn-block">
+					        	<button ng-show="postForm.published" ng-click="updatePost(postForm); createPost = !createPost" type="button" class="btn btn-success btn-block">
 					        		<i class="fa fa-mail-refresh"></i>  Update
 					        	</button>
 			    			</li>
@@ -51,13 +51,14 @@
 				                <i class="fa fa-plus"></i> add
 				            </button>
 		    		</div>
+<!-- 		    		var elementPos = array.map(function(x) {return x.id; }).indexOf(idYourAreLookingFor); -->
 				    <ul id="tagsList" class="list-unstyled">
 			            <li ng-repeat="tag in tags | filter:tagTitle">
 			                <a  class="btn btn-block" 
-			                	ng-init="tag.isSelected = false" 
-			                	ng-class="tag.isSelected ? 'btn-success' : 'btn-default' " 
-			                	ng-click="tag.isSelected ? untagPost(tag) : tagPost(tag); tag.isSelected = !tag.isSelected" 
-			                	ng-style="tag.isSelected? { color : 'white' } : { color : 'rgb(102, 102, 102)' }">{{ tag.title }}
+			                	ng-class="tag.selected ? 'btn-success' : 'btn-default' " 
+			                	ng-click="tag.selected ? untagPost(tag) : tagPost(tag);" 
+			                	ng-style="tag.selected ? { color : 'white' } : { color : 'rgb(102, 102, 102)' }">
+			                	<i class="fa fa-tag"></i> {{ tag.title }}
 			                </a>
 			            </li>
 			        </ul>
@@ -79,7 +80,7 @@
 			  		</tr>
 			  	</thead>
 			  	<tbody>
-			  		<tr ng-repeat="post in posts">
+			  		<tr ng-repeat="post in posts | orderBy : 'date' : true">
 			  			<td>
 			  				<button class="btn btn-default"  ng-show="!post.published" ng-click="post.published = !post.published; updatePost(post)">
 			  					<i class="fa fa-square-o"></i>
@@ -95,14 +96,12 @@
 			  				{{ post.date |  date: format: 'medium' }}
 			  			</td>
 			  			<td>
-			  				<div>
-			  					<button type="button" class="btn btn-default" ng-click="createPost = !createPost; postForm = post">
+			  				<button type="button" class="btn btn-default" ng-click="$parent.createPost = !$parentcreatePost; $parent.postForm = post">
 			  					<i class="fa fa-pencil-square-o"></i>
 			  				</button>
 			  				<button type="button" class="btn btn-danger" ng-click="deletePost(post)">
 			  					<i class="fa fa-times"></i>
 			  				</button>
-			  				</div>
 			  			</td>
 			  		</tr>
 			  	</tbody>

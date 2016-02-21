@@ -1,4 +1,4 @@
-var abdulBlog = angular.module('abdul-blog', ['ngResource', 'ngRoute', 'textAngular'])
+var abdulBlog = angular.module('abdul-blog', ['ngResource', 'ngRoute', 'ngCookies', 'textAngular'])
 .config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider
@@ -16,7 +16,7 @@ var abdulBlog = angular.module('abdul-blog', ['ngResource', 'ngRoute', 'textAngu
       .when('/dashboard', {
         templateUrl : 'static/app/dashboard/dashboard.html',
         controller: 'DashboardController',
-        access: {restricted: false}})
+        access: {restricted: true}})
       .when('/post/:postId', {
         templateUrl: 'static/app/blog/post.html',
         controller: 'BlogController',

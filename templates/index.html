@@ -34,6 +34,7 @@
                       <li role="presentation"><a href="#/soon">Music</a></li>
                       <li role="presentation"><a href="#/soon">Contact me</a></li>
                       <li ng-show="!user" role="presentation"><a data-toggle="modal" data-target=".login">Login</a></li>
+                      <li ng-show="user" role="presentation" ng-cloak><a href="#/dashboard">Dashboard</a></li>
                       <li ng-show="user" role="presentation" ng-controller="LogoutController" ng-cloak>
                         <a ng-click='logout()'>Logout</a>
                       </li>
@@ -66,6 +67,7 @@
   <script src="static/js/angular.min.js"></script>
   <script src="static/js/angular-resource.js"></script>
   <script src="static/js/angular-route.js"></script>
+  <script src="static/js/angular-cookies.js"></script>
   <script src="static/js/textAngular-rangy.min.js"></script>
   <script src="static/js/textAngular-sanitize.min.js"></script>
   <script src="static/js/textAngular.min.js"></script>
