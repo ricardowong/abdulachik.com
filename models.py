@@ -21,7 +21,7 @@ class User(BaseModel, UserMixin):
 	# geo
 	# maps
 	twitter = CharField()
-	email = CharField()
+	email = CharField(unique=True)
 	password = CharField()
 	bio = TextField()
 
