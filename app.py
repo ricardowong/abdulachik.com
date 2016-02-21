@@ -19,7 +19,7 @@ DATABASE = {
 		'engine' : 'peewee.MySQLDatabase',
 		'host' : 'abdulachik.mysql.pythonanywhere-services.com',
 		'port' : 3306,
-		'user' : 'root',
+		'user' : 'abdulachik',
 		'passwd' : 'aa121292'
 		}
 DEBUG = False
@@ -30,9 +30,9 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 # DROPBOX_KEY = '	ijsequnfjgbs2v3'
 # DROPBOX_SECRET = 'athtuhs7doybhes'
 # DROPBOX_ACCESS_TYPE = 'app_folder'
-# db = Database(app)
 # dropbox = Dropbox(app)
 # dropbox.register_blueprint(url_prefix='/dropbox')
+db = Database(app)
 
 app.config.from_object(__name__)
 
