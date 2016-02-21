@@ -13,27 +13,28 @@ import requests
 import uuid
 
 app = Flask(__name__)
-# app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
-# app.config.from_object('config.DevelopmentConfig')
+
 DATABASE = {
 		'name' : 'abdul_blog',
 		'engine' : 'peewee.MySQLDatabase',
-		'host' : 'localhost',
+		'host' : 'abdulachik.mysql.pythonanywhere-services.com',
 		'port' : 3306,
 		'user' : 'root',
 		'passwd' : 'aa121292'
 		}
-DEBUG = True
+DEBUG = False
 TESTING = False
+
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
-DROPBOX_KEY = '	ijsequnfjgbs2v3'
-DROPBOX_SECRET = 'athtuhs7doybhes'
-DROPBOX_ACCESS_TYPE = 'app_folder'
+
+# DROPBOX_KEY = '	ijsequnfjgbs2v3'
+# DROPBOX_SECRET = 'athtuhs7doybhes'
+# DROPBOX_ACCESS_TYPE = 'app_folder'
+# db = Database(app)
+# dropbox = Dropbox(app)
+# dropbox.register_blueprint(url_prefix='/dropbox')
 
 app.config.from_object(__name__)
-db = Database(app)
-dropbox = Dropbox(app)
-dropbox.register_blueprint(url_prefix='/dropbox')
 
 login_manager = LoginManager()
 login_manager.init_app(app)
