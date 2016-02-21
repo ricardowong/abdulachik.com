@@ -63,12 +63,10 @@ abdulBlog
 
 		$scope.tagPost = function(tag){
 			$scope.postForm.tags.push(tag);
-			$scope.containsTag(tag);
 		};
 
 		$scope.untagPost = function(tag){
 			var index = $scope.postForm.tags.indexOf(tag);
 			$scope.postForm.tags.splice(index, 1);
-			$scope.containsTag(tag);
 		};
 	}]);	
