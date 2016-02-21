@@ -5,7 +5,7 @@ from flask.ext.login import UserMixin
 import json
 import datetime
 
-db = MySQLDatabase('abdul_blog', user='abdulachik', passwd='aa121292', port=3306, host='abdulachik.mysql.pythonanywhere-services.com')
+db = MySQLDatabase('abdulachik$abdul_blog', user='abdulachik', passwd='aa121292', port=3306, host='abdulachik.mysql.pythonanywhere-services.com')
 
 class BaseModel(Model):
 	
@@ -14,7 +14,7 @@ class BaseModel(Model):
 
 	class Meta:
 		database = db
-		
+
 class User(BaseModel, UserMixin):
 	# first_name = CharField()
 	# last_name = CharField()

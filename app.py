@@ -15,7 +15,7 @@ import uuid
 app = Flask(__name__)
 
 DATABASE = {
-		'name' : 'abdul_blog',
+		'name' : 'abdulachik$abdul_blog',
 		'engine' : 'peewee.MySQLDatabase',
 		'host' : 'abdulachik.mysql.pythonanywhere-services.com',
 		'port' : 3306,
