@@ -11,7 +11,7 @@ class BaseModel(Model):
 		return self.title
 
 	class Meta:
-		database = MySQLDatabase('abdulachik$abdul_blog', user='abdulachik', passwd='aa121292', port=3306, host='abdulachik.mysql.pythonanywhere-services.com')
+		database = MySQLDatabase('abdul_blog', user='abdulachik', passwd='aa121292', port=3306, host='abdulachik.mysql.pythonanywhere-services.com')
 
 class User(BaseModel, UserMixin):
 	# first_name = CharField()
