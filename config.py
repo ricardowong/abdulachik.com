@@ -1,7 +1,6 @@
 class Config(object):
 	DATABASE = {
 		'name' : 'abdulachik$abdul_blog',
-		'engine' : 'peewee.MySQLDatabase',
 		'host' : 'abdulachik.mysql.pythonanywhere-services.com',
 		'port' : 3306,
 		'user' : 'abdulachik',

@@ -1,11 +1,8 @@
 import unittest
 from playhouse.test_utils import test_database
-from peewee import MySQLDatabase
-from app import app, db
 from models import *
-
 import random
-app.config.from_object('config.TestingConfig')
+
 test_db = db
 
 class TestUsers(unittest.TestCase):

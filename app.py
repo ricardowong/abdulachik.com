@@ -5,6 +5,7 @@ from flask.ext.bcrypt import check_password_hash
 from playhouse.shortcuts import model_to_dict
 from flask.ext.login import current_user
 from werkzeug import secure_filename
+from peewee import MySQLDatabase
 from models import *
 import json
 import helpers
@@ -15,7 +16,14 @@ app = Flask(__name__)
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 app.config.from_object('config.DevelopmentConfig')
 
-db = Database(app)
+database = app.config['DATABASE']
+db = MySQLDatabase(
+	database['name'], 
+	host=database['host'],
+	port=database['port'],
+	user=database['user'],
+	passwd=database['passwd']
+	)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
