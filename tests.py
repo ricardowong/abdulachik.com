@@ -1,21 +1,12 @@
 import unittest
 from playhouse.test_utils import test_database
 from peewee import MySQLDatabase
-
+from app import app, db
 from models import *
 
 import random
-
-test_db = MySQLDatabase(
-	'abdul_blog',
-	user='root',
-	passwd='aa121292',
-	port=3306,
-	host='localhost'
-	)
-
-db = MySQLDatabase('abdulachik$abdul_blog', user='abdulachik', passwd='aa121292', port=3306, host='abdulachik.mysql.pythonanywhere-services.com')
-
+app.config.from_object('config.TestingConfig')
+test_db = db
 
 class TestUsers(unittest.TestCase):
 	def setUp(self):
