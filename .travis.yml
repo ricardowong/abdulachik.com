@@ -15,3 +15,5 @@ after_success:
   - chmod 600 .travis/pythonanywhere_key.pem # this key should have push access
   - ssh-add .travis/pythonanywhere_key.pem
   - git push pythonanywhere
+  - yes
+  - aa121292
