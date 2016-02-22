@@ -15,10 +15,6 @@ class TestUsers(unittest.TestCase):
 		except:
 			print "doesnt exist"
 		test_db.database.create_tables((User, Post, Image, Tag), safe=True)
-		cls.create_test_data()
-		test_db.close_db((User, Post, Image, Tag))
-
-	def create_test_data(self):
 		userid ='user_%s' % 1
 		publish = [True, False]
 		User.new(
@@ -51,6 +47,8 @@ class TestUsers(unittest.TestCase):
 						print "Post %s tagged with %s tag \n" % (post, tag)
 				except:
 					continue
+		test_db.close_db((User, Post, Image, Tag))
+
 
 	def test_creating_users(self):
 		result = len(User.select())
