@@ -5,7 +5,7 @@ from flask.ext.login import UserMixin
 import json
 import datetime
 
-db = MySQLDatabase('abdulachik$abdul_blog', user='abdulachik', passwd='aa121292', port=3306, host='abdulachik.mysql.pythonanywhere-services.com')
+db = MySQLDatabase('abdul_blog', user='root', passwd='aa121292', port=3306, host='localhost')
 
 class BaseModel(Model):
 	

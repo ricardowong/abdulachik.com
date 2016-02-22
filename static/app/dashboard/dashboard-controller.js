@@ -17,8 +17,11 @@ abdulBlog
 		});
 
 		$scope.$watch('postForm.tags', function(data){
+			console.log(data);
 			try{
+				console.log("postForm.tags try")
 				$scope.tags.map(function(tag){
+					console.log(tag);
 					var selected;
 					$scope.postForm.tags.map(function(pTag){
 						tag.selected = tag.selected ? true : pTag.id == tag.id;
@@ -34,6 +37,7 @@ abdulBlog
 				$scope.posts.push(response);
 				$scope.postForm = {};
 				if ($scope.postForm.tags){
+					console.log("hay tags!", $scope.postForm.tags);
 					$http.post('/tagpost/' + response.id, { "tags" : $scope.postForm.tags }).success(function(response){
 						$scope.postForm.tags = [];
 					});
@@ -45,6 +49,12 @@ abdulBlog
 			var url = '/post/' + post.id
 			$http.put(url, post).success(function(success){
 				$scope.postForm = {};
+				if ($scope.postForm.tags){
+					console.log("updateTags", $scope.postForm.tags);
+					$http.put('/tagpost/' + response.id, { "tags" : $scope.postForm.tags }).success(function(response){
+						$scope.postForm.tags = [];
+					});
+				};
 			});
 		};
 
@@ -64,11 +74,16 @@ abdulBlog
 		};
 
 		$scope.tagPost = function(tag){
+			console.log("tag", tag);
+			tag.selected = true;
 			$scope.postForm.tags.push(tag);
 		};
 
 		$scope.untagPost = function(tag){
+			console.log("untag", tag);
+			tag.selected = false;
 			var index = $scope.postForm.tags.indexOf(tag);
+			console.log(index);
 			$scope.postForm.tags.splice(index, 1);
 		};
 	}]);	

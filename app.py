@@ -22,7 +22,7 @@ DATABASE = {
 		'user' : 'abdulachik',
 		'passwd' : 'aa121292'
 		}
-DEBUG = False
+DEBUG = True
 TESTING = False
 
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
@@ -65,6 +65,11 @@ def after_request(response):
 @app.route('/')
 def root():
 	return render_template('index.html')
+
+
+@app.route('/cv')
+def cv():
+	return render_template('cv.html')
 
 @app.route('/login', methods=["POST"])
 def login():
@@ -165,13 +170,20 @@ def new_post():
 		published=post.get('published')
 		)
 	new_post.save()
-	return json.dumps({ "response" : "OK!" , "id" : new_post.id })
+	return json.dumps(model_to_dict(new_post))
 
 @app.route('/tagpost/<postid>', methods=["POST"])
 def tag_in_post(postid):
 	tags = request.get_json().get('tags')
 	for tag in tags:
 		TagPost.create(tag=tag['id'], post=postid)
+	return json.dumps({ "response" : "OK!"})
+
+@app.route('/tagpost/<postid>', methods=["PUT"])
+def update_tag_in_post(postid):
+	tags = request.get_json().get('tags')
+	for tag in tags:
+		TagPost.update(tag=tag['id'], post=postid)
 	return json.dumps({ "response" : "OK!"})
 
 @app.route('/tag/all')
@@ -199,8 +211,10 @@ def tag(id):
 
 @app.route('/tag/new', methods=["POST"])
 def new_tag():
+	print request.get_json()
+	post = request.get_json()
 	tag = Tag.create(
-		title=request.get_json().get('title')
+		title=post.get('title')
 		)
 	tag.save()
 	return json.dumps(model_to_dict(tag))

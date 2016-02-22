@@ -53,6 +53,7 @@
 		    		</div>
 				    <ul id="tagsList" class="list-unstyled">
 			            <li ng-repeat="tag in tags | filter:tagTitle">
+			            	{{ tag.selected }}
 			                <a  class="btn btn-block" 
 			                	ng-class="tag.selected ? 'btn-success' : 'btn-default' " 
 			                	ng-click="tag.selected ? untagPost(tag) : tagPost(tag);" 

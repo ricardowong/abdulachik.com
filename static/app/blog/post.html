@@ -19,7 +19,7 @@
                 {{ post.content }}
             </div>
         </div>
-        <div id="tags">
+        <div id="tags" ng-show="post.tags.length > 0">
             <h6><i class="fa fa-tags"></i>Tags: </h6>
             <ul class="list-inline">
                 <li ng-repeat="tag in tags" class="btn btn-default">
