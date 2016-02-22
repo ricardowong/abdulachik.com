@@ -1,23 +1,24 @@
 class Config(object):
 	DATABASE = {
-		'name' : 'abdul_blog',
+		'name' : 'abdulachik$abdul_blog',
 		'engine' : 'peewee.MySQLDatabase',
-		'host' : 'localhost',
+		'host' : 'abdulachik.mysql.pythonanywhere-services.com',
 		'port' : 3306,
-		'user' : 'root',
+		'user' : 'abdulachik',
 		'passwd' : 'aa121292'
 	}
 	DEBUG = False
 	TESTING = False
 
 class ProductionConfig(Config):
-	pass
+	Config.DATABASE['name'] = 'abdulachik$production'
 
 
 class DevelopmentConfig(Config):
 	DEBUG = True
-	#Config.DATABASE['name'] = 'abdul_blog_development'
+	Config.DATABASE['name'] = 'abdulachik$development'
 
 
 class TestingConfig(Config):
 	TESTING = True
+	Config.DATABASE['name'] = 'abdulachik$testing'

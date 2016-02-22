@@ -1,11 +1,10 @@
 from peewee import (Model, MySQLDatabase, CompositeKey, BlobField, CharField, BooleanField, TextField, DateTimeField, ForeignKeyField,IntegrityError, DoesNotExist)
 from flask.ext.bcrypt import generate_password_hash
 from flask.ext.login import UserMixin
-# from app import db
+from flask_peewee.db import Database
+from app import db
 import json
 import datetime
-
-db = MySQLDatabase('abdulachik$abdul_blog', user='abdulachik', passwd='aa121292', port=3306, host='abdulachik.mysql.pythonanywhere-services.com')
 
 class BaseModel(Model):
 	

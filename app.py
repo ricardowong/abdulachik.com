@@ -1,10 +1,9 @@
 from flask import (Flask, g, render_template, flash, redirect, url_for, request, session)
 from flask.ext.login import (LoginManager, login_user, logout_user, login_required, current_user)
-# from flask_peewee.db import Database
+from flask_peewee.db import Database
 from flask.ext.bcrypt import check_password_hash
 from playhouse.shortcuts import model_to_dict
 from flask.ext.login import current_user
-from flask.ext.dropbox import Dropbox, DropboxBlueprint
 from werkzeug import secure_filename
 from models import *
 import json
@@ -13,28 +12,10 @@ import requests
 import uuid
 
 app = Flask(__name__)
-
-DATABASE = {
-		'name' : 'abdulachik$abdul_blog',
-		'engine' : 'peewee.MySQLDatabase',
-		'host' : 'abdulachik.mysql.pythonanywhere-services.com',
-		'port' : 3306,
-		'user' : 'abdulachik',
-		'passwd' : 'aa121292'
-		}
-DEBUG = True
-TESTING = False
-
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+app.config.from_object('config.DevelopmentConfig')
 
-# DROPBOX_KEY = '	ijsequnfjgbs2v3'
-# DROPBOX_SECRET = 'athtuhs7doybhes'
-# DROPBOX_ACCESS_TYPE = 'app_folder'
-# dropbox = Dropbox(app)
-# # dropbox.register_blueprint(url_prefix='/dropbox')
-# db = Database(app)
-
-app.config.from_object(__name__)
+db = Database(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -276,6 +257,4 @@ def new_image():
 
 
 if __name__ == '__main__':
-	User.new(twitter="barackobama", email="demo@demo.com", password="0000", bio="Demo user for blog testing")
-	User.new(twitter="abdulachik", email="abdulachik@gmail.com", password="aa121292", bio="Programer, musician, cat lover")
 	app.run()

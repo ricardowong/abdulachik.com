@@ -14,6 +14,9 @@ test_db = MySQLDatabase(
 	host='localhost'
 	)
 
+db = MySQLDatabase('abdulachik$abdul_blog', user='abdulachik', passwd='aa121292', port=3306, host='abdulachik.mysql.pythonanywhere-services.com')
+
+
 class TestUsers(unittest.TestCase):
 	def setUp(self):
 		test_db.connect()
