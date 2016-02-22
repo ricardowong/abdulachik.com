@@ -13,7 +13,7 @@ class TestUsers(unittest.TestCase):
 			test_db.database.drop_tables((User, Post, Image, Tag), safe=True)
 		except:
 			print "doesnt exist"
-		test_db.database.create_tables((User, Post, Image, Tag))
+		test_db.database.create_tables((User, Post, Image, Tag), safe=True)
 		self.create_test_data()
 		test_db.close_db((User, Post, Image, Tag))
 
