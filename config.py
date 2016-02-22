@@ -1,6 +1,7 @@
 class Config(object):
 	DATABASE = {
 		'name' : 'abdulachik$abdul_blog',
+		'engine': 'peewee.MySQLDatabase',
 		'host' : 'abdulachik.mysql.pythonanywhere-services.com',
 		'port' : 3306,
 		'user' : 'abdulachik',
@@ -15,9 +16,15 @@ class ProductionConfig(Config):
 
 class DevelopmentConfig(Config):
 	DEBUG = True
-	Config.DATABASE['name'] = 'abdulachik$development'
+	Config.DATABASE = {
+		'name' : 'development.db',
+		'engine': 'peewee.SqliteDatabase',
+	}
 
 
 class TestingConfig(Config):
 	TESTING = True
-	Config.DATABASE['name'] = 'abdulachik$testing'
+	Config.DATABASE = {
+		'name' : 'test.db',
+		'engine': 'peewee.SqliteDatabase',
+	}

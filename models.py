@@ -11,7 +11,7 @@ class BaseModel(Model):
 		return self.title
 
 	class Meta:
-		database = db
+		database = db.database
 
 class User(BaseModel, UserMixin):
 	# first_name = CharField()
