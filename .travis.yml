@@ -14,5 +14,4 @@ after_success:
   - eval "$(ssh-agent -s)" #start the ssh agent
   - chmod 600 .travis/pythonanywhere_key.pem # this key should have push access
   - ssh-add .travis/pythonanywhere_key.pem
-  - git remote add pythonanywhere abdulachik@ssh.pythonanywhere.com:/home/abdulachik/bare-repos/abdul-blog-2016.git
   - git push pythonanywhere
