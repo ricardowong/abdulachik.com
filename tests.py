@@ -7,14 +7,15 @@ import requests
 test_db = db
 
 class TestUsers(unittest.TestCase):
-	def setUp(self):
+	@classmethod
+	def setUp(cls):
 		test_db.connect_db()
 		try:
 			test_db.database.drop_tables((User, Post, Image, Tag), safe=True)
 		except:
 			print "doesnt exist"
 		test_db.database.create_tables((User, Post, Image, Tag), safe=True)
-		self.create_test_data()
+		cls.create_test_data()
 		test_db.close_db((User, Post, Image, Tag))
 
 	def create_test_data(self):
