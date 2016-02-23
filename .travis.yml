@@ -10,6 +10,5 @@ before_script:
   - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 
 after_success:
-  - git config --
   - git remote add pythonanywhere abdulachik:aa121292@ssh.pythonanywhere.com:/home/abdulachik/bare-repos/abdul-blog-2016.git
   - git push pythonanywhere
