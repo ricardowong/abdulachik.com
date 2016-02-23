@@ -6,11 +6,8 @@ install: "pip install -r requirements.txt"
 # command to run tests
 script: nosetests
 
-before_script: ssh-keyscan -H -t rsa,dsa pythonanywhere.com >> ~/.ssh/known_hosts
+before_script: echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 
 after_success:
-  - eval "$(ssh-agent -s)" #start the ssh agent
-  - chmod 600 .travis/deploy_key.pem # this key should have push access
-  - ssh-add .travis/deploy_key.pem
   - git remote add pythonanywhere abdulachik@ssh.pythonanywhere.com:/home/abdulachik/bare-repos/abdul-blog-2016.git
   - git push pythonanywhere
