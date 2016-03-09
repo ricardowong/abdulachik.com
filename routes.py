@@ -23,19 +23,6 @@ def load_user(id):
 		return None
 
 
-@app.before_request
-def before_request():
-	g.db = db
-	g.db.connect_db()
-	g.user = current_user
-
-
-
-@app.after_request
-def after_request(response):
-	g.db.close_db((User, Tag, TagPost, Image, Post))
-	return response
-
 
 @app.route('/')
 def root():
@@ -92,7 +79,7 @@ def user(id):
 		user.execute()
 		return json.dumps({ "response" : "OK!" })
 
-@app.route('/user/new', methods=['POST'])
+@app.route('/user/new', methods='POST')
 def new_user():
 	user = User.new(
 		twitter = request.form['twitter'],
@@ -118,6 +105,7 @@ def all_posts():
 def post(id):
 	if request.method == "GET":
 		post = Post.select().where(Post.id == id).get()
+		print model_to_dict(post)
 		return json.dumps(model_to_dict(post), default=helpers.date_handler)
 
 	if request.method == "DELETE":
@@ -133,7 +121,7 @@ def post(id):
 				published=put.get('published')
 			).where(Post.id == id)
 		post.execute()
-		return json.dumps({ "response" : "OK!" })
+		return json.dumps({ "response" : "OK!", "id": id })
 
 @app.route('/post/new', methods=["POST"])
 def new_post():
@@ -145,21 +133,7 @@ def new_post():
 		published=post.get('published')
 		)
 	new_post.save()
-	return json.dumps(model_to_dict(new_post))
-
-@app.route('/tagpost/<postid>', methods=["POST"])
-def tag_in_post(postid):
-	tags = request.get_json().get('tags')
-	for tag in tags:
-		TagPost.create(tag=tag['id'], post=postid)
-	return json.dumps({ "response" : "OK!"})
-
-@app.route('/tagpost/<postid>', methods=["PUT"])
-def update_tag_in_post(postid):
-	tags = request.get_json().get('tags')
-	for tag in tags:
-		TagPost.update(tag=tag['id'], post=postid)
-	return json.dumps({ "response" : "OK!"})
+	return json.dumps(model_to_dict(new_post), default=helpers.date_handler)
 
 @app.route('/tag/all')
 def all_tags():
@@ -194,58 +168,32 @@ def new_tag():
 	tag.save()
 	return json.dumps(model_to_dict(tag))
 
-@app.route('/post/<id>/tags')
+# tagpost management, post and put
+# TODO: i have to make every model to follow the same pattern in code structure
+# tagpost/postid -> this makes posible to tag a post
+@app.route('/tagpost/<postid>', methods=["POST", "PUT"])
+def tagpost(postid):
+	if request.method == "POST":
+		tags = request.get_json().get('tags')
+		print tags
+		for tag in tags:
+			print tag
+			TagPost.create(tag=tag['id'], post=postid)
+		return json.dumps({ "response" : "OK!"})
+	elif request.method == "PUT":
+		tags = request.get_json().get('tags')
+		for tag in tags:
+			TagPost.update(tag=tag['id'], post=postid)
+		return json.dumps({ "response" : "OK!"})
+
+@app.route('/tagpost/<id>/tags')
 def tags_from_post(id):
 	tags = Tag.select().join(TagPost).join(Post).where(TagPost.post == id)
 	return json.dumps(helpers.models_to_dict(tags), default=helpers.date_handler)
 
-@app.route('/image/all')
-def all_images():
-	images = Image.select()
-	return json.dumps(helpers.models_to_dict(images), default=helpers.date_handler)
-
-@app.route('/image/<id>', methods=['GET', 'DELETE', 'PUT'])
-def image(id):
-	if request.method == "GET":
-		image = Image.select().where(Image.id == id).get()
-		return json.dumps(model_to_dict(image), default=helpers.date_handler)
-
-	if request.method == "DELETE":
-		image = Image.delete().where(Image.id == id)
-		image.execute()
-		return json.dumps({ "response" : "OK!" })
-
-	if request.method == "PUT":
-		image = Image.update(
-				# url=request.form['url'],
-				title=request.form['title'],
-				post=request.form['post']
-			).where(Image.id == id)
-		image.execute()
-		return json.dumps({ "response" : "OK!" })
-
-@app.route('/image/new', methods=['POST'])
-def new_image():
-    if not dropbox.is_authenticated:
-        return redirect(url_for('home'))
-
-    if request.method == 'POST':
-        file_obj = request.files['file']
-
-        if file_obj:
-            client = dropbox.client
-            filename = secure_filename(file.filename)
-
-            # Actual uploading process
-            result = client.put_file('/' + filename, file_obj.read())
-
-            path = result['path'].lstrip('/')
-            image = image.create(
-				url=path,
-				title=request.form['title']
-				)
-            image.save()
-            return redirect(url_for('success', filename=path))
-
-    return json.dumps({ "response" : "OK!" })
+@app.route('/tagpost/<postid>/tag/<tagid>/untag', methods=["DELETE"])
+def untag_post(postid, tagid):
+	untag = TagPost.delete().where((post == postid), (tag == postid))
+	untag.save()
+	return json.dumps({ "response": "OK!" })
 

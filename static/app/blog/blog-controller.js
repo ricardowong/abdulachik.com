@@ -6,7 +6,7 @@ abdulBlog
 				$scope.post = response;
 		});
 
-		$http.get('/post/' + $routeParams.postId + '/tags')
+		$http.get('/tagpost/' + $routeParams.postId + '/tags')
 			.success(function(response){
 				console.log(response);
 				$scope.tags = response;

@@ -53,7 +53,6 @@
 		    		</div>
 				    <ul id="tagsList" class="list-unstyled">
 			            <li ng-repeat="tag in tags | filter:tagTitle">
-			            	{{ tag.selected }}
 			                <a  class="btn btn-block" 
 			                	ng-class="tag.selected ? 'btn-success' : 'btn-default' " 
 			                	ng-click="tag.selected ? untagPost(tag) : tagPost(tag);" 
@@ -90,7 +89,7 @@
 			  				</button>
 			  			</td>
 			  			<td>
-			  				<a href="/post/{{ post.id }}">{{ post.title }}</a>
+			  				<a href="#/post/{{ post.id }}">{{ post.title }}</a>
 			  			</td>
 			  			<td>
 			  				{{ post.date |  date: format: 'medium' }}

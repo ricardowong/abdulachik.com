@@ -24,7 +24,7 @@ abdulBlog.factory('AuthService',
         .success(function (data, status) {
           if(status === 200 && data.result){
             $rootScope.user = true;
-            cookie.put('session', data.sessionid);
+            // cookie.put('session', data.sessionid);
             deferred.resolve();
           } else {
             $rootScope.user = false;
@@ -52,7 +52,7 @@ abdulBlog.factory('AuthService',
         // handle success
         .success(function (data) {
           $rootScope.user = false;
-          cookie.remove('session');
+          // cookie.remove('session');
           deferred.resolve();
         })
         // handle error

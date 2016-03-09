@@ -51,8 +51,8 @@ class Image(BaseModel):
 class Tag(BaseModel):
 	title = CharField()
 
-	def get_tags_from_post(self):
-		return (Tag.select().where(Tag.id == self.post))
+	def get_tags_from_post(self, post):
+		return (TagPost.select().where(Tag.id == post.id))
 
 class Post(BaseModel):
 	title = CharField()
@@ -63,7 +63,7 @@ class Post(BaseModel):
 	# tags
 
 	def get_posts_from_user(self):
-		return Post.select().where(Post.user == self.user)
+		return Post.select().where(Post.author == self.author)
 
 class TagPost(BaseModel):
 	tag = ForeignKeyField(Tag, related_name='tag_in_post', on_delete='CASCADE')
@@ -75,11 +75,13 @@ class TagPost(BaseModel):
 		primary_key = CompositeKey('tag', 'post')
 
 def initialize():
-	db.connect()
-	db.create_tables([User, Tag, Post, TagPost], safe=True)
-	db.close()
+	cur = db
+	cur.connect_db()
+	cur.database.create_tables([User, Tag, Post, TagPost], safe=True)
+	cur.close_db([User, Tag, Post, TagPost])
 
 def drop():
-	db.connect()
-	db.drop_tables([User, Tag, Post, TagPost], safe=True, cascade=True)
-	db.close()
+	cur = db
+	cur.connect_db()
+	cur.database.drop_tables([User, Tag, Post, TagPost], safe=True, cascade=True)
+	cur.close_db([User, Tag, Post, TagPost])
