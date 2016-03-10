@@ -1,13 +1,13 @@
 class Config(object):
 	DATABASE = {
-		'name' : 'abdulachik$abdul_blog',
+		'name' : 'abdulachik$production',
 		'engine': 'peewee.MySQLDatabase',
 		'host' : 'abdulachik.mysql.pythonanywhere-services.com',
 		'port' : 3306,
 		'user' : 'abdulachik',
 		'passwd' : 'aa121292'
 	}
-	DEBUG = False
+	DEBUG = True
 	TESTING = False
 
 class ProductionConfig(Config):
