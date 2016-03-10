@@ -101,21 +101,21 @@ def all_posts():
 			tags_dict = helpers.models_to_dict(tags)
 			post["tags"] = tags_dict
 	except Exception as e:
-		return json.dumps({ "response" : e })
+		return json.dumps({}), 204
 
 	if len(posts_dict) is not 0:
 		return json.dumps(posts_dict, default=helpers.date_handler)
 	else:
 		return json.dumps({}), 204
 
-@app.route('/post/<id>', methods=['GET', 'DELETE', 'PUT'])
-def post(id):
+@app.route('/post/<slug>', methods=['GET', 'DELETE', 'PUT'])
+def post(slug):
 	if request.method == "GET":
-		post = Post.select().where(Post.id == id).get()
+		post = Post.select().where(Post.slug == slug).get()
 		return json.dumps(model_to_dict(post), default=helpers.date_handler)
 
 	if request.method == "DELETE":
-		post = Post.delete().where(Post.id == id)
+		post = Post.delete().where(Post.slug == slug)
 		post.execute()
 		return json.dumps({ "response" : "OK!" })
 
@@ -125,20 +125,21 @@ def post(id):
 				title=put.get('title'),
 				content=put.get('content'),
 				published=put.get('published')
-			).where(Post.id == id)
+			).where(Post.slug == slug)
 		post.execute()
 		return json.dumps({ "response" : "OK!", "id": id })
 
 @app.route('/post/new', methods=["POST"])
 def new_post():
 	post = request.get_json()
-	new_post = Post.create(
+	new_post = Post.new(
 		title=post.get('title'),
 		content=post.get('content'),
 		author=current_user.id,
 		published=post.get('published')
 		)
 	new_post.save()
+
 	return json.dumps(model_to_dict(new_post), default=helpers.date_handler)
 
 @app.route('/tag/all')

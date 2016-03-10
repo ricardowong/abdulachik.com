@@ -17,7 +17,7 @@ var abdulBlog = angular.module('abdul-blog', ['ngResource', 'ngRoute', 'ngCookie
         templateUrl : 'static/app/dashboard/dashboard.html',
         controller: 'DashboardController',
         access: {restricted: true}})
-      .when('/post/:postId', {
+      .when('/post/:postSlug', {
         templateUrl: 'static/app/blog/post.html',
         controller: 'BlogController',
         access: {restricted: false}})

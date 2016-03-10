@@ -4,6 +4,9 @@ from flask.ext.login import UserMixin
 from app import db
 import json
 import datetime
+import re
+from unicodedata import normalize
+
 
 class BaseModel(Model):
 	
@@ -18,7 +21,7 @@ class User(BaseModel, UserMixin):
 	# last_name = CharField()
 	# geo
 	# maps
-	twitter = CharField()
+	twitter = CharField(unique=True)
 	email = CharField(unique=True)
 	password = CharField()
 	bio = TextField()
@@ -49,18 +52,41 @@ class Image(BaseModel):
 
 
 class Tag(BaseModel):
-	title = CharField()
+	title = CharField(unique=True)
 
 	def get_tags_from_post(self, post):
 		return (TagPost.select().where(Tag.id == post.id))
 
 class Post(BaseModel):
-	title = CharField()
+	title = CharField(unique=True)
+	slug = CharField(unique=True)
 	content = TextField()
 	date = DateTimeField(default=datetime.datetime.now())	
 	author = ForeignKeyField(User, related_name='post_author')
-	published = BooleanField()
-	# tags
+	published = BooleanField(default=False)
+
+	@classmethod
+	def new(cls, title, content, author, published):
+		try:
+			delim=u'-'
+			u = unicode(title, "utf-8") if not isinstance(title, unicode) else title
+			_punct_re = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.]+')
+			result = []
+			for word in _punct_re.split(u.lower()):
+				word = normalize('NFKD', word).encode('ascii', 'ignore')
+				if word:
+					result.append(word)
+			post = cls.create(
+				title=title,
+				slug=unicode(delim.join(result)),
+				content=content,
+				author=author,
+				published=published
+				)
+			post.save()
+			return post
+		except IntegrityError:
+			raise ValueError("Post already exists")
 
 	def get_posts_from_user(self):
 		return Post.select().where(Post.author == self.author)
