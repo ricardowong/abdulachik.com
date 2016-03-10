@@ -7,7 +7,12 @@ install: "pip install -r requirements.txt"
 script: nosetests
 
 before_script: 
-  - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - composer self-update -q
+  - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
+  - if [ -z "$dependencies" ]; then composer install; fi;
+  - if [ "$dependencies" = "lowest" ]; then composer update --prefer-lowest -n; fi;
+  - if [ "$dependencies" = "highest" ]; then composer update -n; fi;
+  - composer show -i
 
 after_success:
   - git remote add pythonanywhere abdulachik:aa121292@ssh.pythonanywhere.com:/home/abdulachik/bare-repos/abdul-blog-2016.git
