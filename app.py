@@ -9,6 +9,18 @@ db = Database(app)
 
 from routes import *
 
+@app.before_first_request
+def first_request():
+	try:
+		initialize()
+	except:
+		drop()
+
+	try:
+		User.new(twitter="abdulachik", email="abdulachik@gmail.com", password="aa121292", bio="python developer")
+		User.new(twitter="barackobama", email="barackobama@whitehouse.com", password="rapisthebest", bio="python developer")
+	except:
+		return json.dumps({"response":"already exists"})
 
 @app.before_request
 def before_request():
@@ -24,14 +36,4 @@ def after_request(response):
 	return response
 
 if __name__ == '__main__':
-	try:
-		initialize()
-	except:
-		drop()
-
-	try:
-		User.new(twitter="abdulachik", email="abdulachik@gmail.com", password="aa121292", bio="python developer")
-		User.new(twitter="barackobama", email="barackobama@whitehouse.com", password="rapisthebest", bio="python developer")
-	except:
-		print "already exists"
 	app.run()
