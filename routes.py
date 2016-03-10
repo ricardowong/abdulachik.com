@@ -127,7 +127,7 @@ def post(slug):
 				published=put.get('published')
 			).where(Post.slug == slug)
 		post.execute()
-		post = Post.select().where(Post.slug == slug)
+		post = Post.select().where(Post.slug == slug).first()
 		return json.dumps({ "response" : "OK!", "id": post.id })
 
 @app.route('/post/new', methods=["POST"])
