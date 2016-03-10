@@ -1,14 +1,14 @@
 <div class="post">
         <div class="text-center">
             <h1>{{ post.title }}<!-- <a href="{{ post.maps }}">@{{ post.geo }} </a>--></h1>
-            <p class="author">
-                <strong>@
-                    <a href="http://www.twitter.com/{{ post.author.twitter }}">
+            <h6>
+                <strong>
+                    @<a href="http://www.twitter.com/{{ post.author.twitter }}">
                         {{ post.author.twitter }}
                     </a>
                 </strong> 
                 <span class="text-muted">{{ post.date | date: format: 'longDate' }} </span>
-            </p>
+            </h6>
 
             <a class="btn btn-default" href="#/">
                 <i class="fa fa-arrow-left"></i>  go back
