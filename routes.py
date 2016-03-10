@@ -106,7 +106,7 @@ def all_posts():
 	if len(posts_dict) is not 0:
 		return json.dumps(posts_dict, default=helpers.date_handler)
 	else:
-		return json.dumps({ "response": "EMPTY" })
+		return json.dumps({}), 204
 
 @app.route('/post/<id>', methods=['GET', 'DELETE', 'PUT'])
 def post(id):
@@ -147,7 +147,7 @@ def all_tags():
 	if len(tags) is not 0:
 		return json.dumps(helpers.models_to_dict(tags), default=helpers.date_handler)
 	else:
-		return json.dumps({ "response": "EMPTY" })
+		return json.dumps({}), 204
 
 @app.route('/tag/<id>', methods=['GET', 'DELETE', 'PUT'])
 def tag(id):

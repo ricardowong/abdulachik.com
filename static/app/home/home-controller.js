@@ -4,6 +4,7 @@ abdulBlog
   	$scope.filters = [];
   	$http.get('/post/all').success(function(response){
   		$scope.posts = response;
+
   	});
 
   	$http.get('/tag/all').success(function(response){
