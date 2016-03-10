@@ -15,5 +15,5 @@ before_script:
   - composer show -i
 
 after_success:
-  - git remote add pythonanywhere abdulachik:aa121292@ssh.pythonanywhere.com:/home/abdulachik/bare-repos/abdul-blog-2016.git
+  - git remote add pythonanywhere abdulachik@ssh.pythonanywhere.com:/home/abdulachik/bare-repos/abdul-blog-2016.git
   - git push pythonanywhere
