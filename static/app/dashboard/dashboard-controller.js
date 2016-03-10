@@ -43,7 +43,7 @@ abdulBlog
 		};
 		// TODO: finish updatePost tags problem
 		$scope.updatePost = function(post){
-			var url = '/post/' + post.id;
+			var url = '/post/' + post.slug;
 			$http.put(url, post).success(function(response){
 				if ($scope.postForm.tags.length > 0 && $scope.postForm.tags.length !== "undefined"){
 					$http.post('/tagpost/' + response.id, { "tags" : $scope.postForm.tags }).success(function(response){
