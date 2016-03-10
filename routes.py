@@ -94,12 +94,19 @@ def new_user():
 def all_posts():
 	# posts = TagPost.select(TagPost, Tag, Post).join(Tag).switch(TagPost).join(Post).order_by(Post.date)
 	posts = Post.select().order_by(Post.date)
-	posts_dict = helpers.models_to_dict(posts)
-	for post in posts_dict:
-		tags = Tag.select().join(TagPost).join(Post).where(TagPost.post == post['id'])
-		tags_dict = helpers.models_to_dict(tags)
-		post["tags"] = tags_dict
-	return json.dumps(posts_dict, default=helpers.date_handler)
+	try:
+		posts_dict = helpers.models_to_dict(posts)
+		for post in posts_dict:
+			tags = Tag.select().join(TagPost).join(Post).where(TagPost.post == post['id'])
+			tags_dict = helpers.models_to_dict(tags)
+			post["tags"] = tags_dict
+	except Exception as e:
+		return json.dumps({ "response" : e })
+
+	if len(posts_dict) is not 0:
+		return json.dumps(posts_dict, default=helpers.date_handler)
+	else:
+		return json.dumps({ "response": "EMPTY" })
 
 @app.route('/post/<id>', methods=['GET', 'DELETE', 'PUT'])
 def post(id):
@@ -137,7 +144,10 @@ def new_post():
 @app.route('/tag/all')
 def all_tags():
 	tags = Tag.select()
-	return json.dumps(helpers.models_to_dict(tags), default=helpers.date_handler)
+	if len(tags) is not 0:
+		return json.dumps(helpers.models_to_dict(tags), default=helpers.date_handler)
+	else:
+		return json.dumps({ "response": "EMPTY" })
 
 @app.route('/tag/<id>', methods=['GET', 'DELETE', 'PUT'])
 def tag(id):
