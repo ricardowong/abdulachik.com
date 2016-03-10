@@ -11,13 +11,13 @@ from models import *
 def initialize():
 	cur = db
 	cur.connect_db()
-	cur.database.create_tables([User, Tag, Post, TagPost], safe=True)
+	cur.database.create_tables([User, Tag, Post, TagPost])
 	cur.close_db([User, Tag, Post, TagPost])
 
 def drop():
 	cur = db
 	cur.connect_db()
-	cur.database.drop_tables([User, Tag, Post, TagPost], safe=True, cascade=True)
+	cur.database.drop_tables([User, Tag, Post, TagPost])
 	cur.close_db([User, Tag, Post, TagPost])
 
 def create_tables():
