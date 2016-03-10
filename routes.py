@@ -105,7 +105,6 @@ def all_posts():
 def post(id):
 	if request.method == "GET":
 		post = Post.select().where(Post.id == id).get()
-		print model_to_dict(post)
 		return json.dumps(model_to_dict(post), default=helpers.date_handler)
 
 	if request.method == "DELETE":
@@ -160,7 +159,6 @@ def tag(id):
 
 @app.route('/tag/new', methods=["POST"])
 def new_tag():
-	print request.get_json()
 	post = request.get_json()
 	tag = Tag.create(
 		title=post.get('title')
@@ -175,9 +173,7 @@ def new_tag():
 def tagpost(postid):
 	if request.method == "POST":
 		tags = request.get_json().get('tags')
-		print tags
 		for tag in tags:
-			print tag
 			TagPost.create(tag=tag['id'], post=postid)
 		return json.dumps({ "response" : "OK!"})
 	elif request.method == "PUT":

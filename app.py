@@ -24,14 +24,10 @@ def after_request(response):
 	return response
 
 if __name__ == '__main__':
-	# twitter = CharField()
-	# email = CharField(unique=True)
-	# password = CharField()
-	# bio = TextField()
 	try:
-		drop()
-	except:
 		initialize()
+	except:
+		drop()
 
 	try:
 		User.new(twitter="abdulachik", email="abdulachik@gmail.com", password="aa121292", bio="python developer")
