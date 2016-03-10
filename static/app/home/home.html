@@ -16,11 +16,11 @@
                             {{ post.date | date: format: 'longDate'}}
                         </small>
                     </h3>
-                    <h6>by
-                        @<a href="http://www.twitter.com/{{ post.author.twitter }}">
+                    <p class="author">by @<strong>
+                        <a href="http://www.twitter.com/{{ post.author.twitter }}">
                             {{ post.author.twitter }}
                         </a>
-                    </h6>
+                    </span></p>
                     <div style="margin-top:25px" class="list-group-item-text" ta-bind ng-model="post.content">
                         {{ post.content }}
                     </div>{{ post.content.lenght > 30 ? '...' : '' }}
