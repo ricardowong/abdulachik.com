@@ -32,7 +32,7 @@ def drop_tables():
 	try:
 		drop()
 	except Exception as e:
-		print "there was a problem! which is: %s" % e.value
+		print "there was a problem! which is: %s" % e
 	return "executed drop tables successfully"
 
 if (sys.argv[1] == "create_tables"):
