@@ -99,15 +99,3 @@ class TagPost(BaseModel):
 		return self.post.title + self.tag.title
 	class Meta:
 		primary_key = CompositeKey('tag', 'post')
-
-def initialize():
-	cur = db
-	cur.connect_db()
-	cur.database.create_tables([User, Tag, Post, TagPost], safe=True)
-	cur.close_db([User, Tag, Post, TagPost])
-
-def drop():
-	cur = db
-	cur.connect_db()
-	cur.database.drop_tables([User, Tag, Post, TagPost], safe=True, cascade=True)
-	cur.close_db([User, Tag, Post, TagPost])
