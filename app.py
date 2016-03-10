@@ -37,15 +37,15 @@ def after_request(response):
 	return response
 
 if __name__ == '__main__':
-	# try:
-	# 	drop()
-	# except:
-	# 	initialize()
+	try:
+		drop()
+	except:
+		initialize()
 
-	# try:
-	# 	User.new(twitter="abdulachik", email="abdulachik@gmail.com", password="aa121292", bio="python developer")
-	# 	User.new(twitter="barackobama", email="barackobama@whitehouse.com", password="rapisthebest", bio="python developer")
-	# except:
-	# 	Post.new(title="Emanuel", content="<p>Hello!</p><strong>how are you?</strong>", author=1, published=True)
-	# 	print "error"
+	try:
+		User.new(twitter="abdulachik", email="abdulachik@gmail.com", password="aa121292", bio="python developer")
+		User.new(twitter="barackobama", email="barackobama@whitehouse.com", password="rapisthebest", bio="python developer")
+	except:
+		Post.new(title="Emanuel", content="<p>Hello!</p><strong>how are you?</strong>", author=1, published=True)
+		print "error"
 	app.run()
