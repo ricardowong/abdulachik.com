@@ -22,4 +22,4 @@ before_script:
 after_success:
   - git remote add pythonanywhere abdulachik@ssh.pythonanywhere.com:/home/abdulachik/bare-repos/abdul-blog-2016.git
   - git push pythonanywhere HEAD:master
-  - yes
+  - echo y
