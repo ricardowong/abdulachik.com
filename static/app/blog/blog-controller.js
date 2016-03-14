@@ -6,7 +6,7 @@ abdulBlog
 				$scope.post = response;
 				$http.get('/tagpost/' + response.id+ '/tags')
 					.success(function(response){
-						$scope.tags = response;
+						$scope.post["tags"] = response;
 					});
 		});
 

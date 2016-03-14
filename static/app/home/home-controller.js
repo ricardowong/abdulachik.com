@@ -3,12 +3,12 @@ abdulBlog
 
   	$scope.filters = [];
   	$http.get('/post/all').success(function(response){
-  		$scope.posts = response;
+  		$scope.posts = response.length ? response : [];
 
   	});
 
   	$http.get('/tag/all').success(function(response){
-  		$scope.tags = response;
+  		$scope.tags = response.length ? response : [];
   	});
 
   	$scope.filterBy = function(tag){
@@ -27,8 +27,8 @@ abdulBlog
   		$scope.searchTerm = searchText;
   	};
 
-  	$scope.$watch('filters', function(data){
-  	});
+  	// $scope.$watch('filters', function(data){
+  	// });
 
   	$scope.$watch('tagSearch', function(data){
   		try{
@@ -36,7 +36,6 @@ abdulBlog
   				$scope.searchTerm = "";
   			}
   		} catch (e){
-  			console.log(e);
   		}
   	});
 

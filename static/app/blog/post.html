@@ -4,7 +4,7 @@
             <h6>
                 <strong>
                     @<a href="http://www.twitter.com/{{ post.author.twitter }}">{{ post.author.twitter }}</a>
-                </strong> 
+                </strong>
                 <span class="text-muted">{{ post.date | date: format: 'longDate' }} </span>
             </h6>
 
@@ -20,7 +20,7 @@
         <div id="tags" ng-show="post.tags.length > 0">
             <h6><i class="fa fa-tags"></i>Tags: </h6>
             <ul class="list-inline">
-                <li ng-repeat="tag in tags" class="btn btn-default">
+                <li ng-repeat="tag in post.tags" class="btn btn-default">
                     <a>
                         <i class="fa fa-tag"></i> {{ tag.title }}
                     </a>
@@ -39,7 +39,7 @@
         this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
         };
         */
-        (function() { 
+        (function() {
         var d = document, s = d.createElement('script');
 
         s.src = '//abdulachik.disqus.com/embed.js';
