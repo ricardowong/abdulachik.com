@@ -1,7 +1,8 @@
-abdulBlog
+blog
   .controller('HomeController', ['$scope', '$http', function ($scope, $http) {
 
   	$scope.filters = [];
+
   	$http.get('/post/all').success(function(response){
   		$scope.posts = response.length ? response : [];
 
@@ -26,9 +27,6 @@ abdulBlog
   	$scope.search = function(searchText){
   		$scope.searchTerm = searchText;
   	};
-
-  	// $scope.$watch('filters', function(data){
-  	// });
 
   	$scope.$watch('tagSearch', function(data){
   		try{

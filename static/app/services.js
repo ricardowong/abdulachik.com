@@ -1,4 +1,4 @@
-abdulBlog.factory('AuthService',
+blog.factory('AuthService',
   ['$q', '$timeout', '$http', '$rootScope', '$cookies',
   function ($q, $timeout, $http, $rootScope, $cookies) {
     var cookie = $cookies;

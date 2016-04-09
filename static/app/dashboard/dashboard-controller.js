@@ -1,4 +1,4 @@
-abdulBlog
+blog
 	.controller('DashboardController', ['$scope', '$http', '$filter', function($scope, $http, $filter){
 		$scope.postForm = { tags: [] };
 		$scope.createPost = false;

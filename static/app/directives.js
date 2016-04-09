@@ -1,4 +1,4 @@
-abdulBlog.directive('loginModal', function(){
+blog.directive('loginModal', function(){
 	return {
 		templateUrl: 'static/app/auth/login.html',
 		controller: ['$scope', '$location', 'AuthService', 
@@ -27,4 +27,16 @@ abdulBlog.directive('loginModal', function(){
 			    }
 			}]
 	}
+});
+
+blog.directive('hero', function(){
+    var controller, link, scope;
+    controller = ['$scope', function($scope){
+        
+    }];
+    
+  return {
+      templateUrl: 'static/app/directives/hero.html',
+      controller: controller,
+  }  
 });

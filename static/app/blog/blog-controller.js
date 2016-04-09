@@ -1,4 +1,4 @@
-abdulBlog
+blog
 	.controller('BlogController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
 		// pass
 		$http.get('/post/' + $routeParams.postSlug)

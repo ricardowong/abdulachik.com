@@ -1,4 +1,4 @@
-abdulBlog.controller('LogoutController',
+blog.controller('LogoutController',
   ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
 

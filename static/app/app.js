@@ -1,4 +1,4 @@
-var abdulBlog = angular.module('abdul-blog', ['ngResource', 'ngRoute', 'ngCookies', 'textAngular'])
+var blog = angular.module('blog', ['ngResource', 'ngRoute', 'ngCookies', 'textAngular'])
 .config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider
