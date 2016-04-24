@@ -2,13 +2,13 @@ abdulBlog
 	.controller('DashboardController', ['$scope', '$http', '$filter', function($scope, $http, $filter){
 		$scope.postForm = { tags: [] };
 		$scope.createPost = false;
-		$scope.posts = {};
+
 		$http.get('/post/all').success(function(response){
-			$scope.posts = response;
+			$scope.posts = response.length ? response : [];
 		});
 
 		$http.get('/tag/all').success(function(response){
-			$scope.tags = response;
+			$scope.tags = response.length ? response: [];
 		});
 
 		$scope.$watch('posts', function(data){
@@ -56,10 +56,10 @@ abdulBlog
 		};
 
 		$scope.deletePost = function(post){
-			var url = '/post/' + post.id;
+			var url = '/post/' + post.slug;
 			var index = $scope.posts.indexOf(post);
 			$scope.posts.splice(index, 1);
-			$http.delete(url, post.id);
+			$http.delete(url, post.slug);
 		};
 
 		$scope.addTag = function(tag){
@@ -76,7 +76,6 @@ abdulBlog
 		};
 
 		$scope.untagPost = function(tag, post){
-			console.log("untag", tag);
 			tag.selected = false;
 			$http.delete('/tagpost/' + post.id + '/tag/' + tag.id + '/untag').success(function(response){
 				var index = $scope.postForm.tags.indexOf(tag);
@@ -85,4 +84,4 @@ abdulBlog
 		};
 		// TODO: should add a way to delete posts and tags together
 
-	}]);	
+	}]);

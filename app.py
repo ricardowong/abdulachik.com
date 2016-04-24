@@ -3,7 +3,7 @@ from flask_peewee.db import Database
 
 app = Flask(__name__)
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
-app.config.from_object('config.ProductionConfig')
+app.config.from_object('config.DevelopmentConfig')
 
 db = Database(app)
 
@@ -31,6 +31,7 @@ def after_request(response):
 	return response
 
 if __name__ == '__main__':
+<<<<<<< HEAD
 # 	try:
 # 		drop()
 # 	except:
@@ -42,4 +43,18 @@ if __name__ == '__main__':
 # 	except:
 # 		Post.new(title="Emanuel", content="<p>Hello!</p><strong>how are you?</strong>", author=1, published=True)
 # 		print "error"
+=======
+	try:
+		initialize()
+	except:
+		drop()
+		initialize()
+
+	try:
+		User.new(twitter="abdulachik", email="abdulachik@gmail.com", password="aa121292", bio="python developer")
+		User.new(twitter="barackobama", email="barackobama@whitehouse.com", password="rapisthebest", bio="python developer")
+	except:
+		Post.new(title="Emanuel", content="<p>Hello!</p><strong>how are you?</strong>", author=1, published=True)
+		print "error"
+>>>>>>> 0dbc02aace27d04ac3cbc26165285f3408fe0bd5
 	app.run()
