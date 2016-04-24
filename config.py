@@ -7,7 +7,7 @@ class Config(object):
 		'user' : 'abdulachik',
 		'passwd' : 'aa121292'
 	}
-	DEBUG = False
+	DEBUG = True
 	TESTING = False
 
 class ProductionConfig(Config):
