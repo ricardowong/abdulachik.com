@@ -28,6 +28,9 @@ def load_user(id):
 def root():
 	return render_template('index.html')
 
+@app.route('/daniel-website/')
+def daniel_website():
+    return render_template('daniel-website.html')
 
 @app.route('/cv')
 def cv():

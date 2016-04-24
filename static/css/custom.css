@@ -1,0 +1,242 @@
+* {
+  font-family: 'PT Sans', sans-serif;
+}
+
+.navbar{
+  margin-bottom:0;
+  border:none;
+}
+
+.navbar-brand .glyphicon{
+  margin-right:6px;
+}
+
+.hero{
+  background:url("../../static/img/railroads.jpg") no-repeat center;
+  background-size:cover;
+  border:none;
+}
+
+.white-link{
+    color:#CECECE;
+    
+}
+.white-link i {
+  color: #CECECE;
+}
+
+.white-link:hover{
+    color:#d3d3d3;
+}
+
+
+.navigation-bar {
+  max-height: 50px;
+    background-color:rgba(0, 0, 0, 0.50); 
+}
+.nav li a:hover {
+  background: rgba( 100,  100, 100, 0.25);
+  color: white;
+}
+
+#page-title {
+    margin: -25px 30px;
+    width: 205px;
+    display: block;
+    color: #CECECE;
+}
+
+#social-links {
+    margin: 10px 0;
+}
+.social-links-item {
+  margin: 0 25px;
+}
+.social-links-item a:hover {
+  color: white;
+}
+
+#dashboard-access {
+  width:50px;
+  height: 50px;
+  margin-top:20.5px;
+}
+
+
+#dashboard-access a {
+  color: white;
+}
+
+.dashboard-menu-button {
+    margin-left: 20px;
+    margin-right: 20px;
+    position: relative;
+    right: 25px;
+}
+
+#first-row{
+  margin-bottom: 50px;
+}
+
+.black-background {
+  background: rgba(0,0,0,0.50);
+  height:44px;
+  margin-bottom: 5px;
+}
+
+.black-background h4{
+  color: #CECECE;
+  margin: 0 10px;
+  padding: 10px;
+}
+
+#hero-jumbotron {
+    margin-top: -50px;
+    opacity: 0.85;
+}
+#hero-jumbotron::after {
+    background-color: black;
+}
+@media (min-width:992px) {
+  .hero .get-it{
+    text-align:right;
+    margin-top:80px;
+    padding-right:30px;
+  }
+}
+
+@media (max-width:992px) {
+  .hero .get-it{
+    text-align:center;
+  }
+}
+
+@media (max-width:992px) {
+  .hero .phone-preview{
+    text-align:center;
+  }
+}
+
+.hero .get-it h1, .hero .get-it p{
+  color:#fff;
+  text-shadow:2px 2px 3px rgba(0,0,0,0.3);
+  margin-bottom:40px;
+}
+
+.hero .get-it .btn{
+  margin-left:10px;
+  margin-bottom:10px;
+  text-shadow:none;
+}
+
+div.iphone-mockup{
+  position:relative;
+  max-width:250px;
+  margin:20px;
+  display:inline-block;
+}
+
+.iphone-mockup img.device{
+  width:100%;
+  height:auto;
+}
+
+.iphone-mockup .screen{
+  position:absolute;
+  width:88%;
+  height:77%;
+  top:12%;
+  border-radius:2px;
+  left:6%;
+  border:1px solid #444;
+  background-color:#aaa;
+  overflow:hidden;
+  background:url(../../assets/img/screen-content-iphone-6.jpg);
+  background-size:cover;
+  background-position:center;
+}
+
+.iphone-mockup .screen:before{
+  content:'';
+  background-color:#fff;
+  position:absolute;
+  width:70%;
+  height:140%;
+  top:-12%;
+  right:-60%;
+  transform:rotate(-19deg);
+  opacity:0.2;
+}
+
+.icon-feature{
+  text-align:center;
+}
+
+.icon-feature .glyphicon{
+  font-size:60px;
+}
+
+section.features{
+  background-color:#369;
+  padding:40px 0;
+  color:#fff;
+}
+
+.features h2{
+  color:#fff;
+}
+
+.features .icon-features{
+  margin-top:15px;
+}
+
+.testimonials blockquote{
+  text-align:center;
+}
+
+section.testimonials{
+  margin:50px 0;
+}
+
+.site-footer{
+  padding:20px 0;
+  text-align:center;
+}
+
+@media (min-width:768px) {
+  .site-footer h5{
+    text-align:left;
+  }
+}
+
+.site-footer h5{
+  color:inherit;
+  font-size:20px;
+}
+
+.site-footer .social-icons a:hover{
+  opacity:1;
+}
+
+/*.site-footer .social-icons a{
+  display:inline-block;
+  width:32px;
+  border:none;
+  font-size:20px;
+  border-radius:50%;
+  margin:4px;
+  color:#fff;
+  text-align:center;
+  background-color:#798FA5;
+  height:32px;
+  opacity:0.8;
+  line-height:32px;
+}*/
+
+@media (min-width:768px) {
+  .site-footer .social-icons{
+    text-align:right;
+  }
+}
+
+

@@ -1,6 +1,6 @@
 blog.directive('loginModal', function(){
 	return {
-		templateUrl: 'static/app/auth/login.html',
+		templateUrl: '../static/app/auth/login.html',
 		controller: ['$scope', '$location', 'AuthService', 
 			function ($scope, $location, AuthService) {
 			  	$scope.login = function () {
@@ -29,14 +29,9 @@ blog.directive('loginModal', function(){
 	}
 });
 
-blog.directive('hero', function(){
-    var controller, link, scope;
-    controller = ['$scope', function($scope){
-        
-    }];
-    
+blog.directive('hero', function(){    
   return {
-      templateUrl: 'static/app/directives/hero.html',
-      controller: controller,
+      templateUrl: '../static/app/directives/hero.html',
+      restrict: 'E',
   }  
 });

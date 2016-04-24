@@ -3,22 +3,22 @@ var blog = angular.module('blog', ['ngResource', 'ngRoute', 'ngCookies', 'textAn
 
     $routeProvider
       .when('/', {
-        templateUrl: 'static/app/home/home.html', 
+        templateUrl: '../static/app/home/home.html', 
         controller: 'HomeController',
         access: {restricted: false}})
       .when('/soon', {
-        templateUrl: 'static/app/redirects/soon.html', 
+        templateUrl: '../static/app/redirects/soon.html', 
         controller: 'RedirectsController',
         access: {restricted: false}})
       .when('/logout', {
         controller: 'LogoutController',
         access: {restricted: true}})
       .when('/dashboard', {
-        templateUrl : 'static/app/dashboard/dashboard.html',
+        templateUrl : '../static/app/dashboard/dashboard.html',
         controller: 'DashboardController',
         access: {restricted: true}})
       .when('/post/:postSlug', {
-        templateUrl: 'static/app/blog/post.html',
+        templateUrl: '../static/app/blog/post.html',
         controller: 'BlogController',
         access: {restricted: false}})
       .otherwise({redirectTo: '/'});
