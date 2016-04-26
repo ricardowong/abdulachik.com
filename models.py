@@ -1,45 +1,27 @@
-from peewee import (Model, CompositeKey, BlobField, CharField, BooleanField, TextField, DateTimeField, ForeignKeyField,IntegrityError, DoesNotExist)
-from flask.ext.bcrypt import generate_password_hash
-from flask.ext.login import UserMixin
-from app import db
+import app 
+from flask_sqlalchemy import SQLAlchemy
 import json
 import datetime
-import re
-from unicodedata import normalize
+from flask_user import login_required, UserManager, UserMixin, SQLAlchemyAdapter
 
 
-class BaseModel(Model):
-	
-	def __repr__(self):
-		return self.title
+class User(db.Model, UserMixin):
+	id = db.Column(db.Integer, primary_key=True)
 
-	class Meta:
-		database = db.database
+	# User authentication information
+	username = db.Column(db.String(50), nullable=False, unique=True)
+	password = db.Column(db.String(255), nullable=False, server_default='')
+	reset_password_token = db.Column(db.String(100), nullable=False, server_default='')
 
-class User(BaseModel, UserMixin):
-	# first_name = CharField()
-	# last_name = CharField()
-	# geo
-	# maps
-	twitter = CharField(unique=True)
-	email = CharField(unique=True)
-	password = CharField()
-	bio = TextField()
+	# User email information
+	email = db.Column(db.String(255), nullable=False, unique=True)
+	confirmed_at = db.Column(db.DateTime())
 
-	@classmethod
-	def new(cls, twitter, email, password, bio):
-		try:
-			cls.create(
-				twitter=twitter,
-				email=email,
-				password=generate_password_hash(password),
-				bio=bio
-				)
-		except IntegrityError:
-			raise ValueError("User already exists")
+	# User information
+	active = db.Column('is_active', db.Boolean(), nullable=False, server_default='0')
+	first_name = db.Column(db.String(100), nullable=False, server_default='')
+	last_name = db.Column(db.String(100), nullable=False, server_default='')
 
-	def __repr__(self):
-		return self.email
 
 
 class Image(BaseModel):
