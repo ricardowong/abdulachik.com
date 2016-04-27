@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_user import UserMixin
+from slugify import slugify
 import datetime
 db = SQLAlchemy()
 
