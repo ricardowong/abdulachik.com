@@ -1,9 +1,9 @@
+from flask_user import login_required, UserManager, UserMixin, SQLAlchemyAdapter
 from flask_sqlalchemy import SQLAlchemy
-from flask_user import UserMixin
 from slugify import slugify
 import datetime
-db = SQLAlchemy()
-
+from app import db
+from app import app
 
 class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
@@ -23,8 +23,8 @@ class User(db.Model, UserMixin):
 		'is_active', db.Boolean(), nullable=False, server_default='0')
 	first_name = db.Column(db.String(100), nullable=False, server_default='')
 	last_name = db.Column(db.String(100), nullable=False, server_default='')
-	posts = db.relationship("Post", backref="user", lazy="dynamic")
-
+	posts = db.relationship("Post", backref="author", lazy="dynamic")
+	extend_existing=True
 
 tags = db.Table('tags',
     db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
@@ -36,7 +36,7 @@ class Post(db.Model):
 	title = db.Column(db.String(140), nullable=False, server_default='')
 	slug = db.Column(db.String(200), nullable=False, server_default='')
 	content = db.Column(db.Text, nullable=False, server_default='')
-	date = db.Column(db.DateTime, nullable=False, server_default=str(datetime.datetime.now().timestamp()))	
+	date = db.Column(db.DateTime, nullable=False, server_default=str(datetime.datetime.now()))	
 	published = db.Column(db.Boolean, nullable=False, server_default='False')  
 	user_id = db.Column(db.Integer, db.ForeignKey("user.id"))   
 	tags = db.relationship('Tag', secondary=tags, backref=db.backref('posts', lazy='dynamic'))
@@ -49,3 +49,9 @@ class Post(db.Model):
 class Tag(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	tilte = db.Column(db.String(255), nullable=False, server_default='')
+	
+	
+	
+# Setup Flask-User
+db_adapter = SQLAlchemyAdapter(db, User)        # Register the User model
+user_manager = UserManager(db_adapter, app)  

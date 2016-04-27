@@ -1,4 +1,4 @@
-import app 
+from app import db
 from flask_sqlalchemy import SQLAlchemy
 import json
 import datetime
