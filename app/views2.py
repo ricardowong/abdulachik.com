@@ -127,32 +127,32 @@ def all_posts():
 	print dir(posts)
 	return jsonify(posts=[post.serialize for post in posts])
 
-@app.route('/post/<slug>', methods=['GET', 'DELETE', 'PUT'])
-def post(slug):
+@app.route('/post/id', methods=['GET', 'DELETE', 'PUT'])
+def post(id):
+	post = Post.get(int(id))
 	if request.method == "GET":
-		post = Post.select().where(Post.slug == slug).get()
-		return json.dumps(model_to_dict(post), default=helpers.date_handler)
+		return jsonify(post)
 
 	if request.method == "DELETE":
-		post = Post.delete().where(Post.slug == slug)
-		post.execute()
-		return json.dumps({ "response" : "OK!" })
+		db.session.delete(post)
+		db.session.commit()
+		return jsonify({ "response" : "OK!" })
 
 	if request.method == "PUT":
 		put = request.get_json()
-		post = Post.update(
-				title=put.get('title'),
-				content=put.get('content'),
-				published=put.get('published')
-			).where(Post.slug == slug)
-		post.execute()
-		post = Post.select().where(Post.slug == slug).first()
+		post.title=put.get('title')
+		post.content=put.get('content'),
+		post.published=put.get('published')
+		db.session.commit()
 		return json.dumps({ "response" : "OK!", "id": post.id })
 
 @app.route('/post/new', methods=["POST"])
 def new_post():
 	post = request.get_json()
 	new_post = Post(post.get('title'), post.get('content'), post.get('published'), current_user.id)
+	if (len(post.tags) > 0):
+	    for tag in post.get('tags'):
+		    new_post.tags.append(Tag.get(tag.id))
 	db.session.add(new_post)
 	db.session.commit()
 	return jsonify(response="created")
@@ -160,59 +160,28 @@ def new_post():
 @app.route('/tag/all')
 def all_tags():
 	tags = Tag.query.all()
-	return jsonify(tags)
+	return jsonify(tags=[tag.serialize for tag in tags])
 
 @app.route('/tag/<id>', methods=['GET', 'DELETE', 'PUT'])
 def tag(id):
+	tag = Tag.get(int(id))
 	if request.method == "GET":
-		tag = Tag.select().where(Tag.id == id).get()
-		return json.dumps(model_to_dict(tag), default=helpers.date_handler)
+		return jsonify(tag)
 
 	if request.method == "DELETE":
-		tag = Tag.delete().where(Tag.id == id)
-		tag.execute()
-		return json.dump({ "response" : "OK!" })
+		db.session.delete(tag)
+		db.session.commit()
+		return jsonify({ "response" : "OK!" })
 
 	if request.method == "PUT":
-		tag = Tag.update(
-				name=request.form['name']
-			).where(Tag.id == id)
-		tag.execute()
+		tag.name=request.form['name']
+		db.session.commit()
 		return json.dumps({ "response" : "OK!" })
 
 @app.route('/tag/new', methods=["POST"])
 def new_tag():
 	post = request.get_json()
-	tag = Tag.create(
-		title=post.get('title')
-		)
-	tag.save()
+	tag = Tag(post.get('title'))
+	db.session.add(tag)
+	db.session.commit()
 	return json.dumps(model_to_dict(tag))
-
-# tagpost management, post and put
-# TODO: i have to make every model to follow the same pattern in code structure
-# tagpost/postid -> this makes posible to tag a post
-@app.route('/tagpost/<postid>', methods=["POST", "PUT"])
-def tagpost(postid):
-	if request.method == "POST":
-		tags = request.get_json().get('tags')
-		for tag in tags:
-			TagPost.create(tag=tag['id'], post=postid)
-		return json.dumps({ "response" : "OK!"})
-	elif request.method == "PUT":
-		tags = request.get_json().get('tags')
-		for tag in tags:
-			TagPost.update(tag=tag['id'], post=postid)
-		return json.dumps({ "response" : "OK!"})
-
-@app.route('/tagpost/<id>/tags')
-def tags_from_post(id):
-	tags = Tag.select().join(TagPost).join(Post).where(TagPost.post == id)
-	return json.dumps(helpers.models_to_dict(tags), default=helpers.date_handler)
-
-@app.route('/tagpost/<postid>/tag/<tagid>/untag', methods=["DELETE"])
-def untag_post(postid, tagid):
-	untag = TagPost.delete().where((post == postid), (tag == postid))
-	untag.save()
-	return json.dumps({ "response": "OK!" })
-
