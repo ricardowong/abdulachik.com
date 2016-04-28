@@ -83,7 +83,6 @@ def logout():
 @app.route('/post/all')
 def all_posts():
 	posts = Post.query.all()
-	print dir(posts)
 	return jsonify(posts=[post.serialize for post in posts])
 
 @app.route('/post/id', methods=['GET', 'DELETE', 'PUT'])
