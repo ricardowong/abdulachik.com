@@ -68,7 +68,6 @@ def login():
 	post = request.get_json()
 	user = User.query.filter_by(email=post.get('email')).first()
 	if user and check_password_hash(user.password, post.get('password')):
-		# session['logged_in'] = True
 		status = True
 		login_user(user)
 		return json.dumps({"result":status})
@@ -78,48 +77,8 @@ def login():
 
 @app.route('/logout')
 def logout():
-    # session.pop('logged_in', None)
     logout_user()
     return json.dumps({'result': 'success'})
-
-
-# @app.route('/user/all')
-# def all_users():
-# 	users = User.query.all()
-# 	return jsonify(users)
-
-# @app.route('/user/<id>', methods=['GET', 'DELETE', 'PUT'])
-# def user(id):
-# 	if request.method == "GET":
-# 		user = User.get(int(id))
-# 		return jsonify(user)
-
-# 	if request.method == "DELETE":
-# 		user = User.get(int(id))
-# 		db.session.delete(user)
-# 		db.session.commit()
-# 		return json.dumps({ "response" : "OK!" })
-
-# 	if request.method == "PUT":
-# 		user = User.update(
-# 				twitter = request.form['twitter'],
-# 				email = request.form['email'],
-# 				password = request.form['password'],
-# 				bio = request.form['bio']
-# 			).where(User.id == id)
-# 		user.execute()
-# 		return json.dumps({ "response" : "OK!" })
-
-# @app.route('/user/new', methods='POST')
-# def new_user():
-# 	user = User.new(
-# 		twitter = request.form['twitter'],
-# 		email = request.form['email'],
-# 		password = request.form['password'],
-# 		bio = request.form['bio']
-# 		)
-# 	user.save()
-# 	return json.dumps({ "response" : "OK!" })
 
 @app.route('/post/all')
 def all_posts():
