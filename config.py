@@ -18,16 +18,18 @@
     
 SECRET_KEY = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 SQLALCHEMY_DATABASE_URI = 'sqlite:///development.db'
+SQLALCHEMY_TRACK_MODIFICATIONS = True
 CSRF_ENABLED = True
 
 # Flask-Mail settings
 MAIL_USERNAME =  'abdulachik@gmail.com'
 MAIL_PASSWORD = 'aa121292'
-MAIL_DEFAULT_SENDER = '"MyApp" <abdulachik@gmail.com>'
+MAIL_DEFAULT_SENDER = '"Admin" <abdulachik@gmail.com>'
 MAIL_SERVER = 'smtp.gmail.com'
 MAIL_PORT = '465'
 MAIL_USE_SSL = True
+MAIL_USE_TSL = False
 
 # Flask-User settings
-USER_APP_NAME        = "Blognantisance"                # Used by email templates
+USER_APP_NAME        = "abdul-blog"                # Used by email templates
 
