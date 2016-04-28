@@ -4,7 +4,8 @@ blog
   	$scope.filters = [];
 
   	$http.get('/post/all').success(function(response){
-  		$scope.posts = response.length ? response : [];
+  		$scope.posts = response.posts.length ? response.posts : [];
+		  console.log($scope.posts)
 
   	});
 
