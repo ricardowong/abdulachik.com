@@ -31,7 +31,7 @@ def config_env():
 		os.system("setx MAIL_SERVER " +  raw_input('whats the mailserver?\nExample: smtp.gmail.com\n'))
 		os.system("setx MAIL_PORT " + raw_input('whats the port of that mailserver?\nExample: if its SSL: 465 else for TSL: 587\n'))
     else: 
-		with open(".bashrc", "a") as outfile:  # 'a' stands for "append"
+		with open("../.bashrc", "a") as outfile:  # 'a' stands for "append"
 			outfile.write("export SECRET_KEY " + str(uuid.uuid4()) + ";")
 			outfile.write("export DATABASE_URL " + create_database_uri() + ";")
 			outfile.write("export MAIL_USERNAME " + raw_input("whats your mail user?\nExample: username@gmail.com\n") + ";")
