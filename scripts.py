@@ -12,7 +12,6 @@ def create_all():
 	db.create_all()
 	
 def create_database_uri():
-# 'mysql://abdulachik:aa121292@abdulachik.mysql.pythonanywhere-services.com/abdulachik$production'
     env_mode = raw_input("are you in production?\n")
     print env_mode
     if( env_mode == "yes"):
