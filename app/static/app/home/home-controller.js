@@ -5,8 +5,6 @@ blog
 
   	$http.get('/post/all').success(function(response){
   		$scope.posts = response.posts.length ? response.posts : [];
-		  console.log($scope.posts)
-
   	});
 
   	$http.get('/tag/all').success(function(response){

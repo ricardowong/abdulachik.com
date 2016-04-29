@@ -85,11 +85,13 @@ def all_posts():
 	posts = Post.query.all()
 	return jsonify(posts=[post.serialize for post in posts])
 
-@app.route('/post/id', methods=['GET', 'DELETE', 'PUT'])
+@app.route('/post/<id>', methods=['GET', 'DELETE', 'PUT'])
 def post(id):
-	post = Post.get(int(id))
+	post = Post.query.get(int(id))
+	print post.id
+	print request.method
 	if request.method == "GET":
-		return jsonify(post)
+		return jsonify(post.serialize)
 
 	if request.method == "DELETE":
 		db.session.delete(post)
@@ -98,22 +100,27 @@ def post(id):
 
 	if request.method == "PUT":
 		put = request.get_json()
-		post.title=put.get('title')
-		post.content=put.get('content'),
-		post.published=put.get('published')
+		post.title= put.get('title') if put.get('title') is not None else post.title
+		post.content=put.get('content') if put.get('content') is not None else post.content
+		post.published=put.get('published') if put.get('published') is not None else post.published
 		db.session.commit()
-		return json.dumps({ "response" : "OK!", "id": post.id })
+		return json.dumps({ "response" : "OK!"})
 
 @app.route('/post/new', methods=["POST"])
 def new_post():
 	post = request.get_json()
+	print post
 	new_post = Post(post.get('title'), post.get('content'), post.get('published'), current_user.id)
-	if (len(post.tags) > 0):
+	print new_post
+	if (len(post.get('tags')) > 0):
 	    for tag in post.get('tags'):
-		    new_post.tags.append(Tag.get(tag.id))
+			title = tag.get('title')
+			tag = Tag.query.filter_by(title = title).first()
+			print tag
+			new_post.tags.append(tag)
 	db.session.add(new_post)
 	db.session.commit()
-	return jsonify(response="created")
+	return jsonify(response="OK!")
 
 @app.route('/tag/all')
 def all_tags():
@@ -122,7 +129,7 @@ def all_tags():
 
 @app.route('/tag/<id>', methods=['GET', 'DELETE', 'PUT'])
 def tag(id):
-	tag = Tag.get(int(id))
+	tag = Tag.query.get(int(id))
 	if request.method == "GET":
 		return jsonify(tag)
 
@@ -142,4 +149,4 @@ def new_tag():
 	tag = Tag(post.get('title'))
 	db.session.add(tag)
 	db.session.commit()
-	return json.dumps(model_to_dict(tag))
+	return jsonify(response="OK")

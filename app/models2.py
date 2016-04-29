@@ -26,6 +26,13 @@ class User(db.Model, UserMixin):
 	last_name = db.Column(db.String(100), nullable=False, server_default='')
 	posts = db.relationship("Post", backref="author", lazy="dynamic")
 	
+	@property
+	def serialize(self):
+	    return {
+			"username": self.username,
+			"email" : self.email
+		}
+	
 
 tags = db.Table('tags',
     db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
@@ -49,7 +56,8 @@ class Post(db.Model):
            'id'         : self.id,
            'slug'	: self.slug,
 		   'title' : self.title,
-		   'author_id' : self.user_id,
+		   'author' : User.query.get(self.user_id).serialize,
+		   'content' : self.content,
 		   'published' : self.published,
 		   'date' : self.date,
            # This is an example how to deal with Many2Many relations
@@ -72,8 +80,11 @@ class Post(db.Model):
 class Tag(db.Model):
 	__table_args__ = {"extend_existing": True}
 	id = db.Column(db.Integer, primary_key=True)
-	tilte = db.Column(db.String(255), nullable=False, server_default='')
+	title = db.Column(db.String(255), nullable=False, server_default='')
 	
+	def __init__(self, title):
+	    self.title = title
+		
 	@property
 	def serialize(self):
 		return {

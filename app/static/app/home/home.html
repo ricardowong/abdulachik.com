@@ -10,12 +10,12 @@
         <div id="post-feed" class="list-group">
             <div ng-repeat="post in posts | orderBy : '-id' | filter: searchTerm" class="list-group-item" ng-show="post.published">
                 <h3 class="list-group-item-heading">
-                    <a href="#/post/{{post.slug}}">{{ post.title }}</a>
+                    <a href="#/post/{{post.id}}">{{ post.title }}</a>
                     <small>
                         {{ post.date | date: format: 'fullDate'}}
                     </small>
                 </h3>
-                <p class="author">by @<a href="http://www.twitter.com/{{ post.author.twitter }}">{{ post.author.twitter }}</a></p>
+                <p class="author">by @<a href="http://www.twitter.com/{{ post.author.username }}">{{ post.author.username }}</a></p>
                 <div style="margin-top:25px" class="list-group-item-text" ta-bind ng-model="post.content">
                     {{ post.content }}
                 </div>{{ post.content.lenght > 30 ? '...' : '' }}
