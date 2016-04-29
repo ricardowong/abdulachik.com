@@ -88,8 +88,6 @@ def all_posts():
 @app.route('/post/<id>', methods=['GET', 'DELETE', 'PUT'])
 def post(id):
 	post = Post.query.get(int(id))
-	print post.id
-	print request.method
 	if request.method == "GET":
 		return jsonify(post.serialize)
 
@@ -109,9 +107,7 @@ def post(id):
 @app.route('/post/new', methods=["POST"])
 def new_post():
 	post = request.get_json()
-	print post
 	new_post = Post(post.get('title'), post.get('content'), post.get('published'), current_user.id)
-	print new_post
 	if (len(post.get('tags')) > 0):
 	    for tag in post.get('tags'):
 			title = tag.get('title')

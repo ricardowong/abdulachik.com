@@ -39,7 +39,7 @@ blog
 				}
 			});
 		};
-		// TODO: finish updatePost tags problem
+		
 		$scope.updatePost = function(post){
 			var url = '/post/' + post.id;
 			$http.put(url, post).success(function(response){
@@ -48,10 +48,10 @@ blog
 		};
 
 		$scope.deletePost = function(post){
-			var url = '/post/' + post.slug;
+			var url = '/post/' + post.id;
 			var index = $scope.posts.indexOf(post);
 			$scope.posts.splice(index, 1);
-			$http.delete(url, post.slug);
+			$http.delete(url, post.id);
 		};
 
 		$scope.addTag = function(tag){
