@@ -4,7 +4,7 @@ from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 
 # Setup Flask app and app.config
-app = Flask(__name__, instance_relative_config=True)
+app = Flask(__name__)
 app.config.from_object('config')
 # app.config.from_pyfile('application.cfg')
 
