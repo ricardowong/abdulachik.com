@@ -13,4 +13,4 @@ db = SQLAlchemy(app)                            # Initialize Flask-SQLAlchemy
 mail = Mail(app)                                # Initialize Flask-Mail
 
 
-from app import models2, views2
+from app import models, views
