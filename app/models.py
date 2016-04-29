@@ -1,95 +1,99 @@
-from app import db
-from flask_sqlalchemy import SQLAlchemy
-import json
-import datetime
 from flask_user import login_required, UserManager, UserMixin, SQLAlchemyAdapter
-
+from flask_sqlalchemy import SQLAlchemy
+from slugify import slugify
+import datetime
+from app import db
+from app import app
 
 class User(db.Model, UserMixin):
+	__table_args__ = {"extend_existing": True}
 	id = db.Column(db.Integer, primary_key=True)
 
 	# User authentication information
 	username = db.Column(db.String(50), nullable=False, unique=True)
 	password = db.Column(db.String(255), nullable=False, server_default='')
-	reset_password_token = db.Column(db.String(100), nullable=False, server_default='')
+	reset_password_token = db.Column(
+		db.String(100), nullable=False, server_default='')
 
 	# User email information
 	email = db.Column(db.String(255), nullable=False, unique=True)
 	confirmed_at = db.Column(db.DateTime())
 
 	# User information
-	active = db.Column('is_active', db.Boolean(), nullable=False, server_default='0')
+	active = db.Column(
+		'is_active', db.Boolean(), nullable=False, server_default='0')
 	first_name = db.Column(db.String(100), nullable=False, server_default='')
 	last_name = db.Column(db.String(100), nullable=False, server_default='')
+	posts = db.relationship("Post", backref="author", lazy="dynamic")
+	
+	@property
+	def serialize(self):
+	    return {
+			"username": self.username,
+			"email" : self.email
+		}
+	
+
+tags = db.Table('tags',
+    db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
+    db.Column('post_id', db.Integer, db.ForeignKey('post.id'))
+)
+
+class Post(db.Model):
+	__table_args__ = {"extend_existing": True}
+	id = db.Column(db.Integer, primary_key=True)
+	title = db.Column(db.String(140), nullable=False, server_default='')
+	slug = db.Column(db.String(200), nullable=False, server_default='')
+	content = db.Column(db.Text, nullable=False, server_default='')
+	date = db.Column(db.DateTime, nullable=False, server_default=str(datetime.datetime.now()))	
+	published = db.Column(db.Boolean, nullable=False, server_default='False')  
+	user_id = db.Column(db.Integer, db.ForeignKey("user.id"))   
+	tags = db.relationship('Tag', secondary=tags, backref=db.backref('posts', lazy='dynamic'))
+	
+	@property
+	def serialize(self):
+	    return {
+           'id'         : self.id,
+           'slug'	: self.slug,
+		   'title' : self.title,
+		   'author' : User.query.get(self.user_id).serialize,
+		   'content' : self.content,
+		   'published' : self.published,
+		   'date' : self.date,
+           # This is an example how to deal with Many2Many relations
+           'tags'  : self.serialize_many2many }
+    
+	@property
+	def serialize_many2many(self):
+		return [ tag.serialize for tag in self.tags]
+	
+	def __init__(self, title, content, published, user_id):
+		self.title = title
+		self.slug = slugify(title)
+		self.content = content
+		self.published = published
+		self.user_id = user_id
+		self.date = datetime.datetime.now()
+		
 
 
-
-class Image(BaseModel):
-	# data = BlobField()
-	title = CharField()
-	url = CharField()
-
-	def get_images_from_post(self):
-		return (Image.select().where(Image.post == self.post))
-
-
-class Tag(BaseModel):
-	title = CharField(unique=True)
-
-	def get_tags_from_post(self, post):
-		return (TagPost.select().where(Tag.id == post.id))
-
-class Post(BaseModel):
-	title = CharField(unique=True)
-	slug = CharField(unique=True)
-	content = TextField()
-	date = DateTimeField(default=datetime.datetime.now())	
-	author = ForeignKeyField(User, related_name='post_author')
-	published = BooleanField(default=False)
-
-	@classmethod
-	def new(cls, title, content, author, published):
-		try:
-			delim=u'-'
-			u = unicode(title, "utf-8") if not isinstance(title, unicode) else title
-			_punct_re = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.]+')
-			result = []
-			for word in _punct_re.split(u.lower()):
-				word = normalize('NFKD', word).encode('ascii', 'ignore')
-				if word:
-					result.append(word)
-			post = cls.create(
-				title=title,
-				slug=unicode(delim.join(result)),
-				content=content,
-				author=author,
-				published=published
-				)
-			post.save()
-			return post
-		except IntegrityError:
-			raise ValueError("Post already exists")
-
-	def get_posts_from_user(self):
-		return Post.select().where(Post.author == self.author)
-
-class TagPost(BaseModel):
-	tag = ForeignKeyField(Tag, related_name='tag_in_post', on_delete='CASCADE')
-	post = ForeignKeyField(Post, related_name='post_has_tag', on_delete='CASCADE')
-
-	def __repr__(self):
-		return self.post.title + self.tag.title
-	class Meta:
-		primary_key = CompositeKey('tag', 'post')
-
-def initialize():
-	cur = db
-	cur.connect_db()
-	cur.database.create_tables([User, Tag, Post, TagPost])
-	cur.close_db([User, Tag, Post, TagPost])
-
-def drop():
-	cur = db
-	cur.connect_db()
-	cur.database.drop_tables([User, Tag, Post, TagPost])
-	cur.close_db([User, Tag, Post, TagPost])
+class Tag(db.Model):
+	__table_args__ = {"extend_existing": True}
+	id = db.Column(db.Integer, primary_key=True)
+	title = db.Column(db.String(255), nullable=False, server_default='')
+	
+	def __init__(self, title):
+	    self.title = title
+		
+	@property
+	def serialize(self):
+		return {
+			'id' : self.id,
+			'title' : self.title
+		}
+	
+	
+	
+# Setup Flask-User
+db_adapter = SQLAlchemyAdapter(db, User)        # Register the User model
+user_manager = UserManager(db_adapter, app)  
