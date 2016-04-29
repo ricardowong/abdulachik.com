@@ -3,6 +3,6 @@
 *.db
 *.sqlite
 
-/app/*.pyc
-/app/*.db
-/app/*.sqlite
+app/*.pyc
+app/*.db
+app/*.sqlite
