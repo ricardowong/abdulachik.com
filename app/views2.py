@@ -80,6 +80,10 @@ def logout():
     logout_user()
     return json.dumps({'result': 'success'})
 
+@app.route('/register')
+def register():
+    return redirect('/user/register')
+
 @app.route('/post/all')
 def all_posts():
 	posts = Post.query.all()
