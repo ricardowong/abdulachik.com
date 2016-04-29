@@ -6,7 +6,7 @@ from flask.ext.login import (LoginManager, login_user, logout_user, login_requir
 from flask.ext.bcrypt import check_password_hash
 from playhouse.shortcuts import model_to_dict
 from app import app
-from models2 import *
+from models import *
 import json
 import helpers
 import requests
