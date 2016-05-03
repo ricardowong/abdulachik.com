@@ -42,11 +42,11 @@ tags = db.Table('tags',
 class Post(db.Model):
 	__table_args__ = {"extend_existing": True}
 	id = db.Column(db.Integer, primary_key=True)
-	title = db.Column(db.String(140), nullable=False, server_default='')
-	slug = db.Column(db.String(200), nullable=False, server_default='')
-	content = db.Column(db.Text, nullable=False, server_default='')
-	date = db.Column(db.DateTime, nullable=False, server_default=str(datetime.datetime.now()))	
-	published = db.Column(db.Boolean, nullable=False, server_default='False')  
+	title = db.Column(db.String(140), nullable=False, default='')
+	slug = db.Column(db.String(200), nullable=False, default='')
+	content = db.Column(db.Text, nullable=False, default='')
+	date = db.Column(db.DateTime, nullable=False, default=str(datetime.datetime.now()))	
+	published = db.Column(db.Boolean, nullable=False, default=False)  
 	user_id = db.Column(db.Integer, db.ForeignKey("user.id"))   
 	tags = db.relationship('Tag', secondary=tags, backref=db.backref('posts', lazy='dynamic'))
 	
