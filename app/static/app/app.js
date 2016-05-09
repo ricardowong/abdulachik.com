@@ -1,4 +1,4 @@
-var blog = angular.module('blog', ['ngResource', 'ngRoute', 'ngCookies', 'textAngular'])
+var blog = angular.module('blog', ['ngResource', 'ngRoute', 'ngCookies', 'textAngular', 'vcRecaptcha', 'ui.select', 'ngSanitize'])
 .config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider
@@ -20,6 +20,10 @@ var blog = angular.module('blog', ['ngResource', 'ngRoute', 'ngCookies', 'textAn
       .when('/post/:postid', {
         templateUrl: '../static/app/blog/post.html',
         controller: 'BlogController',
+        access: {restricted: false}})
+      .when('/contact-me', {
+        templateUrl: '/static/app/contact/contact-me.html',
+        controller: 'ContactController',
         access: {restricted: false}})
       .otherwise({redirectTo: '/'});
 

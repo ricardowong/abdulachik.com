@@ -40,7 +40,13 @@ def config_env():
 			outfile.write("export MAIL_SERVER " +  raw_input('whats the mailserver?\nExample: smtp.gmail.com\n') + ";")
 			outfile.write("export MAIL_PORT " + raw_input('whats the port of that mailserver?\nExample: if its SSL: 465 else for TSL: 587\n') + ";")
 		os.system("source .bashrc")
-	    
+
+def create_test_data():
+	import requests
+    port = 5000
+	host = "http:localhost"
+	
+    pass
 			    
 if (sys.argv[1] == "configuration"):
     config_env()
