@@ -1,30 +1,28 @@
-class Config(object):
-	DATABASE = {
-		'name' : 'abdulachik$production',
-		'engine': 'peewee.MySQLDatabase',
-		'host' : 'abdulachik.mysql.pythonanywhere-services.com',
-		'port' : 3306,
-		'user' : 'abdulachik',
-		'passwd' : 'aa121292'
-	}
-	DEBUG = True
-	TESTING = False
+import os
 
-class ProductionConfig(Config):
-	Config.DATABASE['name'] = 'abdulachik$production'
+# Flask-User settings
+USER_APP_NAME        =   "abdul-blog"             # Used by email templates
+APP_NAME             =   "flask-blogify"
+# Flask settings
+SECRET_KEY =              os.getenv('SECRET_KEY')
+SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
+SQLALCHEMY_TRACK_MODIFICATIONS = True
+CSRF_ENABLED = True
+TESTING = False
 
-
-class DevelopmentConfig(Config):
-	DEBUG = True
-	Config.DATABASE = {
-		'name' : 'development.db',
-		'engine': 'peewee.SqliteDatabase',
-	}
-
-
-class TestingConfig(Config):
-	TESTING = True
-	Config.DATABASE = {
-		'name' : 'test.db',
-		'engine': 'peewee.SqliteDatabase',
-	}
+# Flask-Mail settings
+MAIL_USERNAME =           os.getenv('MAIL_USERNAME')
+MAIL_PASSWORD =           os.getenv('MAIL_PASSWORD')
+MAIL_DEFAULT_SENDER =     os.getenv('MAIL_DEFAULT_SENDER')
+MAIL_SERVER =             os.getenv('MAIL_SERVER')
+MAIL_PORT =           int(os.getenv('MAIL_PORT')) if os.getenv('MAIL_PORT') is not None else 465
+MAIL_USE_SSL = True
+MAIL_USE_TSL = False
+#
+# RECAPTCHA_ENABLED = True
+# RECAPTCHA_SITE_KEY = "6LcKAB8TAAAAAO2twN-zfqEQZ0bUz4KkRgk0p8e1"
+# RECAPTCHA_SECRET_KEY = "6LcKAB8TAAAAALBGRpDf1SAYHgMtoDRmX4MnGhFl"
+# RECAPTCHA_THEME = "dark"
+# RECAPTCHA_TYPE = "image"
+# RECAPTCHA_SIZE = "compact"
+# RECAPTCHA_RTABINDEX = 10
