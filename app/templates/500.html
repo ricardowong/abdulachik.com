@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block title %}
+  <title>Something went wrong</title>
+{% endblock %}
+{% block nav %}
+{% endblock %}
+{% block content %}
+<div class="wrapper">
+    <h1>Apparently there is a problem</h1>
+    <p>you can send an email to the admin if you want to report this: <a href="mailto:abdulachik@gmail.com">admin</a>
+    <p><a href="{{ url_for('root') }}">go somewhere nice</a>
+</div>
+{% endblock %}

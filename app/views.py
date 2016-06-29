@@ -1,7 +1,7 @@
 from app import app
 from flask import (g, render_template, flash, redirect, url_for, request, session, jsonify)
-from flask.ext.login import (LoginManager, login_user, logout_user, login_required, current_user)
-from flask.ext.bcrypt import check_password_hash
+from flask_login import (LoginManager, login_user, logout_user, login_required, current_user)
+from flask_bcrypt import check_password_hash
 from models import *
 
 import json
@@ -38,6 +38,14 @@ def before_request():
 def daniel_website():
     return render_template('daniel-website.html')
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+
+@app.errorhandler(500)
+def page_not_found(e):
+    return render_template('500.html'), 500
 # @app.route('/contact-me', methods=['POST'])
 # def contact_me():
 #     message = request.get_json()
@@ -96,10 +104,6 @@ def portfolio():
 def logout():
     logout_user()
     return json.dumps({'result': 'success'})
-
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404
 
 @app.route('/post/all')
 def all_posts():
