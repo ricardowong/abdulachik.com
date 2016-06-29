@@ -2,7 +2,7 @@ blog
 	.controller('DashboardController', ['$scope', '$http', '$filter', function($scope, $http, $filter){
 		$scope.postForm = { tags: [] };
 		$scope.createPost = false;
-
+		
 		$http.get('/post/all').success(function(response){
 			$scope.posts = response.posts.length ? response.posts : [];
 		});
@@ -27,19 +27,19 @@ blog
 			} catch(e){
 			}
 		});
-		
+
 		$scope.newPost = function(publish){
 			$scope.postForm.published = publish;
-			
+
 			$http.post('/post/new', $scope.postForm).success(function(response){
 				$scope.createPost = !$scope.createPost;
-				if (response.response == "OK!"){					
+				if (response.response == "OK!"){
 					$scope.posts.push($scope.postForm);
-					$scope.postForm = { tags: [] };	
+					$scope.postForm = { tags: [] };
 				}
 			});
 		};
-		
+
 		$scope.updatePost = function(post){
 			var url = '/post/' + post.id;
 			$http.put(url, post).success(function(response){
@@ -73,4 +73,12 @@ blog
 			var index = $scope.postForm.tags.indexOf(tag);
 			$scope.postForm.tags.splice(index, 1);
 		};
+	}]).controller("BlogLandingController", ["$scope", function($scope){
+
+
+	}]).controller("NewPostController", ["$scope", function($scope){
+		$scope.postForm = {
+			content:'',
+			title: ''
+		}
 	}]);

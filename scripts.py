@@ -6,7 +6,7 @@ def create_all():
 	from app import db
 	# Create all database tables
 	db.create_all()
-	
+
 def create_database_uri():
     env_mode = raw_input("are you in production?\n")
     print env_mode
@@ -19,7 +19,7 @@ def create_database_uri():
     else:
 	    uri = "sqlite:///database.db"
     return uri
-	
+
 def config_env():
 # For windows only
     if (sys.platform == 'win32'):
@@ -30,7 +30,7 @@ def config_env():
 		os.system("setx MAIL_DEFAULT_SENDER " +  raw_input('whats the displayname and email of the default sender?\nExample: "Admin" <abdulachik@gmail.com>\n'))
 		os.system("setx MAIL_SERVER " +  raw_input('whats the mailserver?\nExample: smtp.gmail.com\n'))
 		os.system("setx MAIL_PORT " + raw_input('whats the port of that mailserver?\nExample: if its SSL: 465 else for TSL: 587\n'))
-    else: 
+    else:
 		with open("../.bashrc", "a") as outfile:  # 'a' stands for "append"
 			outfile.write("export SECRET_KEY " + str(uuid.uuid4()) + ";")
 			outfile.write("export DATABASE_URL " + create_database_uri() + ";")
@@ -43,18 +43,13 @@ def config_env():
 
 def create_test_data():
 	import requests
-    port = 5000
+	port = 5000
 	host = "http:localhost"
-	
-    pass
-			    
+	pass
+
 if (sys.argv[1] == "configuration"):
     config_env()
 elif (sys.argv[1] == "create_all"):
     create_all()
 elif (sys.argv[1] == "Sys specs"):
     print sys.platform
-	
-	
-	
-	

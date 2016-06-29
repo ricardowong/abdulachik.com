@@ -1,22 +1,42 @@
-var blog = angular.module('blog', ['ngResource', 'ngRoute', 'ngCookies', 'textAngular', 'vcRecaptcha', 'ui.select', 'ngSanitize'])
-.config(['$routeProvider', function ($routeProvider) {
-
+var blog = angular.module('blog',
+['ngResource', 'ngRoute', 'ngCookies', 'vcRecaptcha', 'ui.select', 'froala'])
+.config(['$routeProvider', function ($routeProvider, $authProvider) {
+  // // $authProvider.httpInterceptor = function() { return true; },
+  // // $authProvider.withCredentials = true;
+  // // $authProvider.tokenRoot = null;
+  // $authProvider.baseUrl = '/';
+  // $authProvider.loginUrl = '/login';
+  // $authProvider.signupUrl = '/admin/signup';
+  // // $authProvider.unlinkUrl = '/auth/unlink/';
+  // $authProvider.tokenName = 'token';
+  // $authProvider.tokenPrefix = 'satellizer';
+  // $authProvider.authHeader = 'Authorization';
+  // $authProvider.authToken = 'Bearer';
+  // $authProvider.storageType = 'localStorage';
     $routeProvider
-      .when('/', {
-        templateUrl: '../static/app/home/home.html', 
+      .when('/preview', {
+        templateUrl: '../static/app/home/home.html',
         controller: 'HomeController',
         access: {restricted: false}})
       .when('/soon', {
-        templateUrl: '../static/app/redirects/soon.html', 
+        templateUrl: '../static/app/redirects/soon.html',
         controller: 'RedirectsController',
         access: {restricted: false}})
       .when('/logout', {
         controller: 'LogoutController',
-        access: {restricted: true}})
-      .when('/dashboard', {
-        templateUrl : '../static/app/dashboard/dashboard.html',
+        access: {restricted: false}})
+      .when('/', {
+        templateUrl : '../static/app/dashboard/dashboard2.html',
         controller: 'DashboardController',
-        access: {restricted: true}})
+        access: {restricted: false}})
+      .when('/blog-landing', {
+        templateUrl : '../static/app/dashboard/BlogLanding.html',
+        controller: 'BlogLandingController',
+        access: {restricted: false}})
+      .when('/new-post', {
+        templateUrl : '../static/app/dashboard/new-post.html',
+        controller: 'NewPostController',
+        access: {restricted: false}})
       .when('/post/:postid', {
         templateUrl: '../static/app/blog/post.html',
         controller: 'BlogController',
@@ -27,7 +47,8 @@ var blog = angular.module('blog', ['ngResource', 'ngRoute', 'ngCookies', 'textAn
         access: {restricted: false}})
       .otherwise({redirectTo: '/'});
 
-  }]).run(function ($rootScope, $location, $route, AuthService) {
+  }])
+.run(function ($rootScope, $location, $route, AuthService) {
 
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
     try {
@@ -43,7 +64,9 @@ var blog = angular.module('blog', ['ngResource', 'ngRoute', 'ngCookies', 'textAn
     };
   });
 
+  $rootScope.user = {
+    name: "abdul",
+    bio: " sup dog",
+    startDate: "12-12-1992"
+  }
 });
-
-
-

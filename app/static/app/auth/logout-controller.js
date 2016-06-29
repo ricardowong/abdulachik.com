@@ -1,6 +1,6 @@
 blog.controller('LogoutController',
   ['$scope', '$location', 'AuthService',
-  function ($scope, $location, AuthService) {
+  function ($scope, $location, AuthService, $auth) {
 
     $scope.logout = function () {
 

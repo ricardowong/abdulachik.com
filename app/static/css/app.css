@@ -205,7 +205,7 @@ textarea:focus, textarea.form-control:focus, input.form-control:focus, input[typ
 
 .center_image{
     float: none;
-    margin: 0 auto;  
+    margin: 0 auto;
     height:400px;
     background-size:cover;
 }
@@ -214,4 +214,25 @@ textarea:focus, textarea.form-control:focus, input.form-control:focus, input[typ
 #tagsList {
   max-height: 250px;
   overflow: auto;
+}
+.ta-editor {
+    min-height: 300px;
+    height: auto;
+    overflow: auto;
+    font-family: inherit;
+    font-size: 100%;
+    margin:20px 0;
+}
+.ta-editor .form-control .postForm-height, .ta-scroll-window .form-control .postForm-height  {
+    min-height: 300px;
+    height: auto;
+    overflow: auto;
+    font-family: inherit;
+    font-size: 100%;
+}
+
+.form-control .postForm-height > .ta-bind {
+    height: auto;
+    min-height: 300px;
+    padding: 6px 12px;
 }

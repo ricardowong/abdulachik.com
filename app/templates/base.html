@@ -29,7 +29,7 @@
 <body>
     {% block body %}
     <div id="header-div" class="clearfix with-margins">
-        <div class="pull-left"><a href="/"><h1 class="no-margins">User management board</h1></a></div>
+        <div class="pull-left"><a href="/"><h1 class="no-margins">Flask-Blogify<small>a smart blog engine.</small></h1></a></div>
         <div class="pull-right">
             {% if call_or_get(current_user.is_authenticated) %}
                 <a href="{{ url_for('user.profile') }}">{{ current_user.username }}</a>
