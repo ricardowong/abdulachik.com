@@ -29,7 +29,6 @@ def load_user(payload):
         abort(401)
 
 
-jwt = JWT(app, authenticate, load_user)
 
 
 from app import models, views
