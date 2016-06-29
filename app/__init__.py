@@ -2,8 +2,6 @@ import os
 from flask import Flask, render_template_string
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
-from flask.ext.security import Security
-from flask.ext.jwt import JWT
 
 # Setup Flask app and app.config
 app = Flask(__name__)
