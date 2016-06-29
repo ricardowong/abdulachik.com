@@ -1,6 +1,4 @@
-from flask_user import login_required, UserManager, UserMixin, SQLAlchemyAdapter
 from flask_sqlalchemy import SQLAlchemy
-from flask.ext.security import UserMixin, RoleMixin, SQLAlchemyUserDatastore
 from slugify import slugify
 import datetime
 from app import db
@@ -10,7 +8,7 @@ roles_users = db.Table('roles_users',
                        db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
                        db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
 
-class User(db.Model, UserMixin):
+class User(db.Model):
 	__table_args__ = {"extend_existing": True}
 	id = db.Column(db.Integer, primary_key=True)
 
@@ -55,10 +53,10 @@ class User(db.Model, UserMixin):
 			"email" : self.email
 		}
 
-class Role(db.Model, RoleMixin):
-    id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(80), unique=True)
-    description = db.Column(db.String(255))
+# class Role(db.Model, RoleMixin):
+#     id = db.Column(db.Integer(), primary_key=True)
+#     name = db.Column(db.String(80), unique=True)
+#     description = db.Column(db.String(255))
 
 
 tags = db.Table('tags',
@@ -118,11 +116,3 @@ class Tag(db.Model):
 			'id' : self.id,
 			'title' : self.title
 		}
-
-
-
-user_datastore = SQLAlchemyUserDatastore(db, User, Role)
-
-# Setup Flask-User
-db_adapter = SQLAlchemyAdapter(db, User)        # Register the User model
-user_manager = UserManager(db_adapter, app)
