@@ -116,7 +116,3 @@ class Tag(db.Model):
 			'id' : self.id,
 			'title' : self.title
 		}
-
-
-
-user_datastore = SQLAlchemyUserDatastore(db, User, Role)
