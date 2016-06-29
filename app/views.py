@@ -11,7 +11,7 @@ import uuid
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'login'
+login_manager.login_view = 'user.login'
 
 @login_manager.user_loader
 def load_user(id):
@@ -21,10 +21,10 @@ def load_user(id):
 def root():
 	return render_template('index.html')
 
-@login_required
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
+# @login_required
+# @app.route('/dashboard')
+# def dashboard():
+#     return render_template('dashboard.html')
 
 @app.route('/index')
 def index():
@@ -79,19 +79,6 @@ def cv():
 	return render_template('cv.html')
 
 
-@app.route('/login', methods=['POST', 'GET'])
-def login():
-    if request.method == 'GET':
-        return render_template('login.html')
-    else:
-        email = request.form['email']
-        password = request.form['password']
-        user = User.query.filter_by(email=email).first()
-        if check_password_hash(user.password, password):
-            return redirect(url_for('dashboard'))
-        else:
-            return redirect(url_for('login'))
-
 @app.route('/blog')
 def blog():
     return render_template("under_construction.html")
@@ -100,10 +87,6 @@ def blog():
 def portfolio():
     return render_template("under_construction.html")
 
-@app.route('/logout')
-def logout():
-    logout_user()
-    return json.dumps({'result': 'success'})
 
 @app.route('/post/all')
 def all_posts():
