@@ -7,9 +7,12 @@ blog.directive('loginModal', function(){
 			      // initial values
 			      $scope.error = false;
 			      $scope.disabled = true;
-
 			      // call login from service
+						// $auth.login(loginForm)
+						// 	.then(function(response) {})
+						// 	.catch(function(response) {});
 			      AuthService.login($scope.loginForm.email, $scope.loginForm.password)
+
 			        // handle success
 			        .then(function () {
 			          $location.path('/dashboard');

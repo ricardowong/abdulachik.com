@@ -36,6 +36,10 @@ blog.factory('AuthService',
           $rootScope.user = false;
           deferred.reject();
         });
+        $http.post('/api/v1/auth', {username:email, password:password}).success(function (data){
+          console.log(data)
+          cookie.put('blogify:access_token', data.access_token);
+        });
 
       // return promise object
       return deferred.promise;

@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block nav %}
+{% endblock %}
+{% block content %}
+<div class="wrapper">
+  <h1>Super powers</h1>
+  <form action="/login" method="POST">
+    <label class="textfield">
+      <input type="email" name="email" value="{{
+        request.form.email }}">
+      <span class="textfield__label">email</span>
+    </label>
+    <label class="textfield">
+      <input type="password" name="password" value="{{
+        request.form.password }}">
+      <span class="textfield__label">password</span>
+    </label>
+    <input type="submit" value="Login">
+  </form>
+</div>
+{% endblock %}

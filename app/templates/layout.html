@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <link rel="stylesheet" href="{{url_for('static', filename='bower_components/cutestrap/dist/css/cutestrap.css')}}">
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}" />
+ <script src="{{url_for('static', filename='bower_components/jquery/dist/jquery.min.js')}}"></script>
+ <script src="{{url_for('static', filename='bower_components/vue/dist/vue.min.js')}}"></script>
+   {% block title %}
+   <title>abdulachik.com</title>
+   {% endblock %}
+</head>
+<body>
+  {% block nav %}
+  <nav class="grid">
+      <a class="btn btn--link" href="{{ url_for('root') }}">Home</a>
+      <a class="btn btn--link" href="{{ url_for('blog') }}">Blog</a>
+      <a class="btn btn--link" href="{{ url_for('portfolio') }}">Portfolio</a>
+      {% if current_user.is_authenticated %}
+      <a class="btn btn--link" href="{{ url_for('logout') }}">Logout</a>
+      {% else %}
+      <a class="btn btn--link" href="{{ url_for('login') }}">Login</a>
+      {% endif %}
+  </nav>
+  {% endblock %}
+
+  {% block content %}
+  {% endblock %}
+
+</body>
+</html>
