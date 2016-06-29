@@ -11,14 +11,6 @@ app.config.from_object('config')
 db = SQLAlchemy(app)                            # Initialize Flask-SQLAlchemy
 mail = Mail(app)                                # Initialize Flask-Mail
 
-# JWT Token authentication  ===================================================
-def authenticate(username, password):
-    user = user_datastore.find_user(email=username)
-    if user and username == user.email and check_password_hash(user.password, password):
-        return user
-    else:
-        return None
-
 
 def load_user(payload):
     if validate_token(payload):
