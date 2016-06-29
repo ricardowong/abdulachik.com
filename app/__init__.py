@@ -24,6 +24,3 @@ def load_user(payload):
 
 
 from app import models, views
-
-from models import user_datastore
-security = Security(app, user_datastore)
