@@ -2,7 +2,6 @@ from app import app
 from flask import (g, render_template, flash, redirect, url_for, request, session, jsonify)
 from flask.ext.login import (LoginManager, login_user, logout_user, login_required, current_user)
 from flask.ext.bcrypt import check_password_hash
-from flask.ext.security.utils import encrypt_password, verify_password
 from models import *
 
 import json
