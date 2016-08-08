@@ -1,0 +1,37 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <ul class="nav nav-tabs">
+      <li role="presentation" class="active"><a href="#">Tags</a></li>
+      <li role="presentation"><a href="#">Add tag</a></li>
+      <li role="presentation"><a href="#">Messages</a></li>
+    </ul>
+    <h4>Tags </h4>
+    <div class="form-group">
+      <label class="sr-only" for="searchTagsBar">Search</label>
+      <div class="input-group">
+        <input id="searchTagsBar" class="form-control" type="text" ng-model="searchTerm" />
+        <span class="input-group-btn">
+          <button class="btn btn-default" ng-click="search(searchTerm)">
+            <i class="fa fa-search text-primary"></i>
+          </button>
+        </span>
+      </div>
+    </div>
+    <h4>Found</h4>
+    <ul ng-show="tags.length > 0">
+      <li ng-repeat="tag in tagsList">
+
+      </li>
+    </ul>
+    <h4>Selected</h4>
+    <tag obj="tag" ng-repeat="tag in tagsSelected"></tag>
+  </div>
+  <button class="btn btn-default" ng-click="addTag(searchTerm)">
+    <i class="fa fa-plus text-primary"></i>
+    Add
+  </button>
+  <button class="btn btn-default" ng-click="removeTag(searchTerm)">
+    <i class="fa fa-times text-danger"></i>
+    Remove
+  </button>
+</div>

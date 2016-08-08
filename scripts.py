@@ -3,7 +3,7 @@ import os
 import uuid
 
 def create_all():
-	from app import db
+	from app.extensions import db
 	# Create all database tables
 	db.create_all()
 

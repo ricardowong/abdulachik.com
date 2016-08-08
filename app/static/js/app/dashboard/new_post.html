@@ -1,0 +1,39 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Title</label>
+        <input class="form-control" type="text" ng-model="formData.title"/>
+      </div>
+      <trix-editor ng-style="{ 'min-height': '480px'}" class="trix-content" angular-trix ng-model="formData.content"></trix-editor>
+      <tags-input ng-model="formData.tags"></tags-input>
+      <button class="btn btn-warning" ng-click="preview()">
+        <i class="fa fa-search" aria-hidden="true"></i>
+        Preview
+      </button>
+      <button class="btn btn-default" ng-click="draft()">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+        Draft
+      </button>
+      <button class="btn btn-info" ng-click="post()">
+        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+        Post
+      </button>
+      <button class="btn btn-danger" ng-click="cancel()">
+        <i class="fa fa-times" aria-hidden="true"></i>
+        Cancel
+      </button>
+    </div>
+    <div class="col-md-6">
+
+      <div class="preview-content"  ng-show="preview">
+        <div>
+          <h2 class="title">{{ formData.title }}</h2>
+        </div>
+        <div ng-bind-html="formData.content">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

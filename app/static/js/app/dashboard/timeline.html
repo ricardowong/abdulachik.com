@@ -1,0 +1,22 @@
+<div>
+  <div ng-repeat="post in posts | orderBy: 'date' " ng-style="{ 'max-height': '320', 'max-width': '480px'}">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">{{ post.title }} <small>{{ post.published ? 'published' : 'draft' }}</small></h2>
+      </div>
+      <div class="panel-body" ng-style="{ 'word-break' : 'break-all' }" ng-bind-html="post.preview">
+
+      </div>
+      <div class="panel-footer">
+        <button class="btn btn-default">
+          <i class="fa fa-search text-primary"></i>
+          Preview
+        </button>
+        <button class="btn btn-default">
+          <i class="fa fa-times text-danger"></i>
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

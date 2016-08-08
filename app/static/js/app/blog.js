@@ -1,4 +1,3 @@
-
 class PostFeed extends React.Component {
   _getPosts(){
     var postFeed = [

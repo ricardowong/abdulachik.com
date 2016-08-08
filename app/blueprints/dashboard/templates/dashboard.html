@@ -18,6 +18,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{url_for('static', filename='bower_components/AdminLTE/dist/css/AdminLTE.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='bower_components/ng-tags-input/ng-tags-input.css') }}" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.css">
 
   <!-- <link rel="stylesheet" href="static/bower_components/.min.css"> -->
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -54,7 +56,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" ng-app="dashboard">
 <div class="wrapper">
 
   <!-- Main Header -->
@@ -263,8 +265,8 @@ desired effect
         <li class="treeview">
           <a href="#/blog-landing"><i class="fa fa-link"></i> <span>Blog</span> <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
-            <li><a href="#/preview">Timeline</a></li>
-            <li><a href="#/new-post">New post</a></li>
+            <li><a href="#/blog/timeline">Timeline</a></li>
+            <li><a href="#/blog/new-post">New post</a></li>
             <li><a href="#"></a></li>
           </ul>
         </li>
@@ -281,8 +283,8 @@ desired effect
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
-        <small>Manage your content here</small>
+        {{ dashboard.title }}
+        <small>{{ dashboard.subtitle }}</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -291,19 +293,10 @@ desired effect
     </section>
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content" ng-view>
 
       <!-- Your Page Content Here -->
-      <div id="app">
-        <h1>Hello App!</h1>
-        <p>
-          <!-- use v-link directive for navigation. -->
-          <a v-link="{ path: '/foo' }">Go to Foo</a>
-          <a v-link="{ path: '/bar' }">Go to Bar</a>
-        </p>
-        <!-- route outlet -->
-        <router-view></router-view>
-      </div>
+
     </section>
     <!-- /.content -->
   </div>
@@ -399,15 +392,23 @@ desired effect
 <!-- REQUIRED JS SCRIPTS -->
 {% endraw %}
 <!-- jQuery 2.2.0 -->
+
 <script src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.min.js')}}"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="{{ url_for('static', filename='bower_components/AdminLTE/bootstrap/js/bootstrap.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{ url_for('static', filename='bower_components/AdminLTE/dist/js/app.min.js')}}"></script>
 
-<script src="{{ url_for('static', filename='bower_components/vue/dist/vue.min.js')}}"></script>
-<script src="{{ url_for('static', filename='bower_components/vue-router/dist/vue-router.min.js')}}"></script>
-<script src="{{ url_for('static', filename='js/dashboard.js')}}"></script>
+<script src="{{ url_for('static', filename='bower_components/angular/angular.min.js')}}"></script>
+
+<script src="{{ url_for('static', filename='bower_components/ng-tags-input/ng-tags-input.min.js')}}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.js"></script>
+<script src="{{ url_for('static', filename='bower_components/angular-route/angular-route.min.js')}}"></script>
+<script src="{{ url_for('static', filename='bower_components/angular-resource/angular-resource.min.js')}}"></script>
+<script src="{{ url_for('static', filename='bower_components/angular-sanitize/angular-sanitize.min.js')}}"></script>
+<script src="{{ url_for('static', filename='bower_components/angular-trix/dist/angular-trix.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/app/dashboard-app.js')}}"></script>
+<script src="{{ url_for('static', filename='js/app/dashboard/blog.js')}}"></script>
 <!-- <script src="static/js/lodash.js"></script>
 <script src="static/js/select.min.js"></script> -->
 <!-- <script

@@ -1,6 +1,6 @@
 # flask-blogify
 
-> A flask blog engine
+> A Vue.js project
 
 ## Build Setup
 

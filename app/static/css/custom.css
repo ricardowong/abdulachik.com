@@ -12,14 +12,14 @@
 }
 
 .hero{
-  background:url("../../static/img/railroads.jpg") no-repeat center;
+  /*background:url("../../static/img/railroads.jpg") no-repeat center;*/
   background-size:cover;
   border:none;
 }
 
 .white-link{
     color:#CECECE;
-    
+
 }
 .white-link i {
   color: #CECECE;
@@ -32,7 +32,7 @@
 
 .navigation-bar {
   max-height: 50px;
-    background-color:rgba(0, 0, 0, 0.50); 
+    background-color:rgba(0, 0, 0, 0.50);
 }
 .nav li a:hover {
   background: rgba( 100,  100, 100, 0.25);
@@ -151,7 +151,7 @@ div.iphone-mockup{
   border:1px solid #444;
   background-color:#aaa;
   overflow:hidden;
-  background:url(../../assets/img/screen-content-iphone-6.jpg);
+  /*background:url(../../assets/img/screen-content-iphone-6.jpg);*/
   background-size:cover;
   background-position:center;
 }
@@ -238,5 +238,3 @@ section.testimonials{
     text-align:right;
   }
 }
-
-

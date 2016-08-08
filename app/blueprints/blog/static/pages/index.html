@@ -1,0 +1,32 @@
+<h1 class="page-header">
+    Blog
+    <small>Secondary Text</small>
+</h1>
+
+<!-- First Blog Post -->
+<div ng-repeat="post in posts | orderBy: 'date':reverse ">
+  <h2>
+      <a href="#/post/{{ post.id }}">{{ post.title }}</a>
+  </h2>
+  <p class="lead">
+      by <a href="mailto:{{ post.author.email }}">{{ post.author.username }}</a>
+  </p>
+  <p><span class="glyphicon glyphicon-time"></span> Posted on {{ post.date }}</p>
+  <hr>
+  <!-- <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+  <hr> -->
+  <div class="post-content" ng-bind-html="post.preview">
+  </div>...
+  <a class="btn btn-primary" href="#/post/{{ post.id }}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+  <hr>
+</div>
+
+<!-- Pager -->
+<ul class="pager">
+    <li class="previous">
+        <a href="#">&larr; Older</a>
+    </li>
+    <li class="next">
+        <a href="#">Newer &rarr;</a>
+    </li>
+</ul>

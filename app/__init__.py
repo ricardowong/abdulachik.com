@@ -4,26 +4,25 @@ from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 from app.blueprints.dashboard import dashboard
 from app.blueprints.user import user
+from app.blueprints.api import api
+from app.blueprints.blog import blog
+from flask_webpack import Webpack
+
+
+# webpack = Webpack()
+
 # Setup Flask app and app.config
 app = Flask(__name__)
 app.config.from_object('config')
+# app.config.update( WEBPACK_MANIFEST_PATH = os.path.dirname(os.path.abspath(__file__)) + '/build/manifest.json')
+# app.config['WEBPACK_MANIFEST_PATH']= "\\".join(os.path.dirname(os.path.abspath(__file__)).split('\\')[:-1]) + '/build/manifest.json'
+
+# webpack.init_app(app)
 app.register_blueprint(dashboard)
 app.register_blueprint(user)
-# app.config.from_pyfile('application.cfg')
-# Initialize Flask extensions
-db = SQLAlchemy(app)                            # Initialize Flask-SQLAlchemy
-mail = Mail(app)                                # Initialize Flask-Mail
+app.register_blueprint(api)
+app.register_blueprint(blog)
 
-
-def load_user(payload):
-    if validate_token(payload):
-        identity = payload['identity']
-        user = User.query.get(identity)
-        return user
-    else:
-        abort(401)
-
-
-
-
-from app import models, views
+from extensions import *
+db.init_app(app)
+from app import views
