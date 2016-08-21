@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Secret page</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+  <script src="https://use.fontawesome.com/424290672a.js"></script>
+</head>
+<body>
+  <div class="container" style="min-height:100%;min-height:100vh;display:flex;align-items:center;">
+    <div id="first_section">
+      <h1>Hola muchachita <small>guapa<i class="fa fa-exclamation" aria-hidden="true"></i></small></h1>
+      <p>tengo una pregunta que hacerte...</p>
+      <button class="btn btn-default" onclick="responder()">
+        Responder <i class="fa fa-hand-pointer-o" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div id="second_section">
+      <h1>Me dejas abrazarte?</h1>
+      <button class="btn btn-primary" data-toggle="modal" data-target="#gracias_ale">
+        Si <i class="fa fa-smile-o" aria-hidden="true"></i>
+      </button>
+      <button class="btn btn-danger" id="no">
+        No <i class="fa fa-frown-o" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="gracias_ale" tabindex="-1" role="dialog" aria-labelledby="Gracias ale!">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="gracias_ale-title">Para usted, bella señorita...</h4>
+        </div>
+        <div class="modal-body">
+            <h4 class="text-center">Gracias!</h4>
+            <img class="img-responsive center-block" src="https://s-media-cache-ak0.pinimg.com/236x/29/2f/dd/292fddf9d61b7ea6d07d60f7a5af3235.jpg" alt="Elefantes enamorados">
+        </div>
+        <div class="modal-footer">
+          <p class="text-center">
+            Te quiero mucho!
+              <i class="fa fa-heart" aria-hidden="true"></i>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/ale.js') }}"></script>
+</body>
+</html>

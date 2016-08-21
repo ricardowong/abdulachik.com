@@ -98,3 +98,7 @@ def blog():
 @app.route('/portfolio')
 def portfolio():
     return render_template("under_construction.html")
+
+@app.route('/ale')
+def ale():
+	return render_template("ale.html")

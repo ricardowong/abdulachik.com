@@ -1,25 +1,12 @@
 language: python
 python:
-  - "2.7"
+  - "3.5"
 # command to install dependencies
 install: "pip install -r requirements.txt"
+
 # command to run tests
 script: nosetests
 
-# before_script: 
-#   - composer self-update -q
-#   - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
-#   - if [ -z "$dependencies" ]; then composer install; fi;
-#   - if [ "$dependencies" = "lowest" ]; then composer update --prefer-lowest -n; fi;
-#   - if [ "$dependencies" = "highest" ]; then composer update -n; fi;
-#   - composer show -i
-
-before_script:
-  - echo -e "Host pythonanywhere.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-  - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-  - git config --global push.default simple
 
 after_success:
-  - git remote add pythonanywhere abdulachik@ssh.pythonanywhere.com:/home/abdulachik/bare-repos/abdul-blog-2016.git
-  - git push pythonanywhere HEAD:master
-  - echo y
+  - git pull
