@@ -17,6 +17,8 @@ blog.run(function($rootScope, $resource){
     $resource('/api/tag/all').get(function(response){
       $rootScope.tags = response.tags;
     });
+
+    $rootScope.year = new Date();
 })
 
 blog.controller('BlogIndexCtrl', function($scope, $resource){

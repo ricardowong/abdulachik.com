@@ -4,7 +4,7 @@ from flask_login import (login_user, logout_user, login_required, current_user)
 from flask_bcrypt import check_password_hash, generate_password_hash
 
 import json
-import helpers
+from app.helpers import *
 import requests
 import uuid
 from app.extensions import login_manager, db

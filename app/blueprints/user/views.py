@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import (LoginManager, login_user, logout_user, login_required, current_user)
 from flask_bcrypt import check_password_hash
-from models import User
+from app.blueprints.user.models import User
 
 
 user = Blueprint('user', __name__, template_folder='templates', url_prefix='/user')
@@ -16,7 +16,6 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user:
             if check_password_hash(user.password, password):
-                print "correct"
                 login_user(user)
                 return redirect(url_for('dashboard.index'))
             else:
