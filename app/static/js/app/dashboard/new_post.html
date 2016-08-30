@@ -1,15 +1,36 @@
 <div class="panel panel-default">
   <div class="panel-body">
-    <div class="col-md-6">
+    <div ng-show="!isPreview">
       <div class="form-group">
         <label>Title</label>
         <input class="form-control" type="text" ng-model="formData.title"/>
       </div>
-      <trix-editor ng-style="{ 'min-height': '480px'}" class="trix-content" angular-trix ng-model="formData.content"></trix-editor>
+      <summernote config="wysiwygOptions" ng-model="formData.content"></summernote>
       <tags-input ng-model="formData.tags"></tags-input>
+    </div>
+    <div ng-show="isPreview">
+
+      <div class="preview-content">
+        <div>
+          <h2 class="title">{{ formData.title }}</h2>
+        </div>
+        <div ng-bind-html="formData.content">
+        </div>
+        <div>
+          {{ formData.tags }}
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer">
       <button class="btn btn-warning" ng-click="preview()">
-        <i class="fa fa-search" aria-hidden="true"></i>
-        Preview
+        <div ng-show="!isPreview">
+          <i class="fa fa-search" aria-hidden="true"></i>
+          Preview
+        </div>
+        <div ng-show="isPreview">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          Edit
+        </div>
       </button>
       <button class="btn btn-default" ng-click="draft()">
         <i class="fa fa-floppy-o" aria-hidden="true"></i>
@@ -23,17 +44,6 @@
         <i class="fa fa-times" aria-hidden="true"></i>
         Cancel
       </button>
-    </div>
-    <div class="col-md-6">
-
-      <div class="preview-content"  ng-show="preview">
-        <div>
-          <h2 class="title">{{ formData.title }}</h2>
-        </div>
-        <div ng-bind-html="formData.content">
-
-        </div>
-      </div>
     </div>
   </div>
 </div>

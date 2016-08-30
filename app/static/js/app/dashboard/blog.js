@@ -7,7 +7,27 @@ app.controller('NewPostCtrl', function($scope, $rootScope, $http){
   $scope.formData = {
     tags: []
   };
-  $scope.preview = false;
+  $scope.wysiwygOptions = {
+    height:300,
+    airmode:true,
+    toolbar: [
+      ['edit',['undo','redo']],
+      ['headline', ['style']],
+      ['style', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']],
+      ['fontface', ['fontname']],
+      ['textsize', ['fontsize']],
+      ['fontclr', ['color']],
+      ['alignment', ['ul', 'ol', 'paragraph', 'lineheight']],
+      ['height', ['height']],
+      ['table', ['table']],
+      ['insert', ['link','picture','video','hr']],
+      ['view', ['fullscreen', 'codeview']],
+      ['help', ['help']]
+    ]
+  }
+  $scope.isPreview = false;
+
+  console.log($.summernote, $rootScope);
   $scope.post = function(){
     $scope.formData.published = true;
     console.log($scope.formData);
@@ -26,7 +46,7 @@ app.controller('NewPostCtrl', function($scope, $rootScope, $http){
     $scope.formData = {};
   }
   $scope.preview = function(){
-    $scope.preview != $scope.preview;
+    $scope.isPreview = !$scope.isPreview;
   }
 });
 
