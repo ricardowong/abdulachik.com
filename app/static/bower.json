@@ -16,16 +16,9 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "2",
-    "AdminLTE": "admin-lte#^2.3.6",
-    "angular-trix": "^1.0.2",
-    "ng-tags-input": "^3.1.1",
+    "jquery": "^2",
     "bootstrap": "^3.3.7",
-    "angular": "^1.5.8",
-    "angular-route": "^1.5.8",
-    "angular-resource": "1.5.7",
-    "angular-sanitize": "^1.5.8",
     "summernote": "^0.8.2",
-    "angular-summernote": "^0.8.1"
+    "neon": "^2"
   }
 }

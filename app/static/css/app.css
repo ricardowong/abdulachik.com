@@ -1,238 +1,132 @@
-header{
-  height:300px;
-  background:url(../img/antwerpen-centralstation.jpg) no-repeat center;
-  background-size:cover;
-}
+/*!
+ * Start Bootstrap - Simple Sidebar (http://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
 
-[ng\:cloak], [ng-cloak], .ng-cloak {
-  display: none !important;
-}
-
-*{ margin: 0;padding: 0; }
-
-html, body{height: 100%;}
-
-#wrapper{ min-height: 100%; }
-
-
-#content{
-  margin-top:25px;
-  position:relative;
-}
-
-footer{
-  position:relative;
-  height:75px;
-  padding:20px;
-  text-align:center;
-  background-color:#333;
-  color:#fff;
-  clear: both;
-}
-
-body:before {
-  content:"";
-  height:100%;
-  float:left;
-  width:0;
-  margin-top:-32767px;
-}
-
-footer h5{
-  color:inherit;
-}
-a{
-	color: #666666;
-}
-.navbar-nav{
-  margin-top:14px;
-}
-
-.navbar-nav .nav li{
-  height:50px;
-}
-
-.navbar-nav > li > a{
-  padding-top:8px;
-  padding-bottom:8px;
-  line-height:32px;
-}
-
-.navbar-default .navbar-nav > li > a{
-  color:white;
-  font-weight:bold;
-  background-color:rgba(255,255,255,0.4);
-}
-
-.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus{
-  color:#fff;
-  background-color:rgba(0,0,0,0.6);
-  font-weight:bold;
-}
-
-.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{
-  color:#fff;
-  background-color:rgba(0,0,0,0.6);
-  font-weight:bold;
-}
-.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus{
-	background-color: #666666 ;
-}
-
-.nav-pills>li.active>a:hover{
-	background-color: grey ;
-}
-
-.navbar-toggle{
-  background-color:#fff !important;
-  box-shadow:1px 1px 1px rgba(0,0,0,0.4);
-  margin-top:20px;
-}
-
-a:hover, a:focus {
-    color: black;
-}
-
-nav.navbar.navbar-default{
-  background:none;
-  box-shadow:none;
-}
-
-.navbar-brand{
-  height:75px;
-  font-size:18px;
-  color:#fff !important;
-  text-shadow:1px 1px 1px rgba(0,0,0,0.4);
-}
-
-.navbar-brand span.text-title{
-  text-transform:uppercase;
-  font-weight:bold;
-}
-
-@media (max-width:767px) {
-  .navbar-brand span.text-title{
-    display:none;
-  }
-}
-
-.navbar-brand .glyphicon{
-  display:inline-block;
-  font-size:36px;
-  color:#fff;
-  vertical-align:middle;
-  margin-right:20px;
-  position:relative;
-  top:-2px;
-}
-
-@media (min-width:768px) {
-  .navbar-nav li{
-    margin-left:10px;
-  }
-}
-
-.categories{
-  text-align:center !important;
-  margin-bottom:20px;
-  border-bottom:1px solid #e4e4e4;
-  padding:10px;
-}
-
-.categories li{
-  display:inline-block !important;
-  float:none;
-}
-
-.post-body{
-  margin-top:30px;
-  font-size:16px;
-}
-p{
-  color: rgba(0, 0, 0, 0.8);
-}
-
-@media (min-width:992px) {
-  .post-title{
-    text-align:right;
-    padding-right:30px;
-  }
-}
-
-.post-title .author{
-  text-transform:uppercase;
-}
-
-.post-body figure{
-  margin-bottom:10px;
-  text-align:center;
-}
-
-.post-title .author span{
-  margin-left:5px;
-}
-
-.post-title h1{
-  font-weight:bold;
-  margin-top:30px;
-}
-
-@media (max-width:767px) {
-  .post-title h1{
-    margin-top:20px;
-    font-size:32px;
-    margin-bottom:10px;
-  }
-}
-
-div.container.post{
-  margin-bottom:50px;
-}
-
-#login{
-  max-width: 100%;
-	margin-bottom: 30px;
-}
-
-textarea:focus, textarea.form-control:focus, input.form-control:focus, input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus, [type=text].form-control:focus, [type=password].form-control:focus, [type=email].form-control:focus, [type=tel].form-control:focus, [contenteditable].form-control:focus{
-    box-shadow: inset 0 -2px 0 #666666;
-}
-
-#signin-btn{
-	color: white;
-	background-color: #666666;
-}
-
-.center_image{
-    float: none;
-    margin: 0 auto;
-    height:400px;
-    background-size:cover;
-}
-#dashboard{
+ body {
+    overflow-x: hidden;
  }
-#tagsList {
-  max-height: 250px;
-  overflow: auto;
-}
-.ta-editor {
-    min-height: 300px;
-    height: auto;
-    overflow: auto;
-    font-family: inherit;
-    font-size: 100%;
-    margin:20px 0;
-}
-.ta-editor .form-control .postForm-height, .ta-scroll-window .form-control .postForm-height  {
-    min-height: 300px;
-    height: auto;
-    overflow: auto;
-    font-family: inherit;
-    font-size: 100%;
+
+/* Toggle Styles */
+
+#wrapper {
+    margin-top: 50px;
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
 
-.form-control .postForm-height > .ta-bind {
-    height: auto;
-    min-height: 300px;
-    padding: 6px 12px;
+#wrapper.toggled {
+    padding-left: 250px;
+}
+
+.sidebar-wrapper {
+    z-index: 1000;
+    position: absolute;
+    bottom: -50px; 
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-top:-110px;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #000;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled .sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 250px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    .sidebar-wrapper {
+        width: 250px;
+    }
+
+    #wrapper.toggled .sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
 }

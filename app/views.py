@@ -25,18 +25,10 @@ def create_database():
 		admin = User(username='abdulachik', password=generate_password_hash('aa121292'), email="abdulachik@gmail.com")
 		db.session.add(admin)
 		db.session.commit()
+
 @app.route('/')
 def root():
 	return render_template('index.html')
-
-# @login_required
-# @app.route('/dashboard')
-# def dashboard():
-#     return render_template('dashboard.html')
-
-@app.route('/index')
-def index():
-	return render_template('index-react.html')
 
 @app.route('/demo')
 def demo():
@@ -58,6 +50,7 @@ def page_not_found(e):
 @app.errorhandler(500)
 def page_not_found(e):
     return render_template('500.html'), 500
+
 # @app.route('/contact-me', methods=['POST'])
 # def contact_me():
 #     message = request.get_json()

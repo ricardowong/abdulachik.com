@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from flask_login import (LoginManager, login_user, logout_user, login_required, current_user)
 from flask_bcrypt import check_password_hash
 from app.blueprints.user.models import User
@@ -28,3 +28,8 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('root'))
+
+@user.route('/current_user')
+def get_user(): 
+    user = current_user.serialize
+    return jsonify(username = user["username"], id=user["id"], email = user["email"] )
