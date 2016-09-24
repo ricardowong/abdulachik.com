@@ -1,0 +1,4 @@
+
+        [console_scripts]
+        website=cli.cli:cli
+    

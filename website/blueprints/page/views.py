@@ -26,23 +26,6 @@ def load_user(id):
 #
 
 
-# @app.before_first_request
-# def create_database():
-# 	db.create_all()
-# 	user = User.query.filter_by(email='abdulachik@gmail.com').first()
-# 	if user == None:
-# 		admin = User(username='abdulachik', password=generate_password_hash('aa121292'), email="abdulachik@gmail.com")
-# 		db.session.add(admin)
-# 		db.session.commit()
-
-@page.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404
-
-@page.errorhandler(500)
-def page_not_found(e):
-    return render_template('500.html'), 500
-
 @page.route('/')
 def root():
 	return render_template('index.html')
@@ -51,9 +34,7 @@ def root():
 def demo():
 	return render_template('demo.html')
 
-@page.before_request
-def before_request():
-    g.user = current_user
+
 
 @page.route('/daniel-website/')
 def daniel_website():
