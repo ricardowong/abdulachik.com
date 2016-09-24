@@ -1,7 +1,7 @@
 .DS_Store
-app/static/bower_components
+website/static/bower_components
 __pycache__
-app/__pycache__
-app/*.db
-app/*.pyc
+website/__pycache__
+website/*.db
+website/*.pyc
 *.pyc
